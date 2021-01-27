@@ -28,16 +28,29 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.white,
+              color: Colors.yellow,
             ),
           ),
 
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.yellow,
+                  child: PageView(
+                    children: [
+                      Column(
+
+
+                      ),
+
+                      Column(
+
+
+                      )
+                    ],
+                  ),
             ),
           ),
+
           Expanded(
             flex: 3,
             child: Container(
