@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       Parser solve = Parser();
       temp = msg;
-      temp = temp.replaceAll("x", '*');
+      temp = temp.replaceAll('x', '*');
       try{
         Expression expr = solve.parse(temp);
         ContextModel cm = ContextModel();
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         output = "$ans";
       }
       catch(err){
-        output = "Error";
+        output = "$temp";
       }
     });
   }
@@ -283,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("4");},child: Text('4', textScaleFactor: 2,),)),
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("5");},child: Text('5', textScaleFactor: 2,),)),
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("6");},child: Text('6', textScaleFactor: 2,),)),
-                      SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("×");},child: Text('×', textScaleFactor: 2,),)),
+                      SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("x");},child: Text('×', textScaleFactor: 2,),)),
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("/");},child: Text('/', textScaleFactor: 2,),)),
                     ],
                   ),
