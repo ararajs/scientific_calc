@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
+import 'functions.dart' as func;
 
 
 void main() => runApp(MyApp());
@@ -23,11 +24,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
+  final golver = func.Solver();
+  final badd = func.ButtonAdd();
   var msg = "";
   var output = "0";
   var temp =  "";
 
+  void outputer(){
+    setState((){
+      output = golver.solve(msg);
+    });
+  }
+
+  @override
   void solver(){                              // Solver based on math_expressions. Works fine and outputs it fine.
     setState(() {
       Parser solve = Parser();
@@ -40,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         output = "$ans";
       }
       catch(err){
-        output = "$temp";
+        output = "Error";
       }
     });
   }
@@ -110,13 +119,7 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("∆");},child: Text('∆', textScaleFactor: 2,),)),
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("ƒ");},child: Text('ƒ', textScaleFactor: 2,),)),
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("∑");},child: Text('∑', textScaleFactor: 2,),)),
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("√"); },child: Text('√', textScaleFactor: 1.13,),)),
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("∛");},child: Text('∛', textScaleFactor: 1.3,),)),
-                        ],
+                        children: badd.ebreturner(1,2.0, 2,2.0, 3,2.0, 4,2.0, 5,2.0),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -245,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
                           SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("0");},child: Text('0', textScaleFactor: 2,),)),
-                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update(".");},child: Text('.', textScaleFactor: 2,),)),
+                          SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("!");},child: Text('!', textScaleFactor: 2,),)),
                           SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("x10^");},child: Text('x10^', textScaleFactor: 0.8,),)),
                           SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () {result(); },child: Text('ANS', textScaleFactor: 1,),)),
                           SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("=");},child: Text('=', textScaleFactor: 2,),)),
@@ -258,7 +261,7 @@ class _HomePageState extends State<HomePage> {
               )
             ),
           ),
-          Expanded(
+          Expanded(      // Static buttons for simple mathematical calculations
             flex: 2,
             child: Container(
               color: Colors.lightBlue,
@@ -306,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update(".");},child: Text('.', textScaleFactor: 2,),)),
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { update("x10^");},child: Text('x10^', textScaleFactor: 0.8,),)),
                       SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { result();},child: Text('ANS', textScaleFactor: 1,),)),
-                      SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { solver();},child: Text('=', textScaleFactor: 2,),)),
+                      SizedBox(width: 65.0, height: 55.0,child: ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.white,onPrimary: Colors.black,), onPressed: () { outputer();},child: Text('=', textScaleFactor: 2,),)),
                     ],
                   ),
                 ],
