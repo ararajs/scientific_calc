@@ -23,7 +23,7 @@ class Solver{
 }
 
 class ButtonAdd{
-  List ebreturner () {
+  List ebreturner (a,b,c,d,e) {
     var opp;
     opp = [
       SizedBox(width: 65.0,
@@ -31,31 +31,31 @@ class ButtonAdd{
           child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
             textColor: Colors.white,
             onPressed: () {},
-            child: Text("7", style: GoogleFonts.lato(fontSize: 40,),),)),
+            child: Text("$a", style: GoogleFonts.lato(fontSize: 40,),),)),
       SizedBox(width: 65.0,
           height: 55.0,
           child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
             textColor: Colors.white,
             onPressed: () {},
-            child: Text("8", style: GoogleFonts.lato(fontSize: 40,),),)),
+            child: Text("$b", style: GoogleFonts.lato(fontSize: 40,),),)),
       SizedBox(width: 65.0,
           height: 55.0,
           child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
             textColor: Colors.white,
             onPressed: () {},
-            child: Text("9", style: GoogleFonts.lato(fontSize: 40,),),)),
+            child: Text("$c", style: GoogleFonts.lato(fontSize: 40,),),)),
       SizedBox(width: 65.0,
           height: 55.0,
           child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
             textColor: Colors.white,
             onPressed: () {},
-            child: Text("DEL", style: GoogleFonts.lato(fontSize: 17,),),)),
+            child: Text("$d", style: GoogleFonts.lato(fontSize: 17,),),)),
       SizedBox(width: 65.0,
           height: 55.0,
           child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
             textColor: Colors.white,
             onPressed: () {},
-            child: Text("AC", style: GoogleFonts.lato(fontSize: 20,),),)),
+            child: Text("$e", style: GoogleFonts.lato(fontSize: 20,),),)),
     ];
     return opp;
   }

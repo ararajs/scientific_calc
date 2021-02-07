@@ -25,45 +25,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final golver = func.Solver();
-  final badd = func.ButtonAdd();
+  final funcsolver = func.Solver();
+  final buttonadd = func.ButtonAdd();
   var msg = "";
   var output = "0";
   var temp =  "";
-
-  void outputer(){
-    setState(() {
-      Parser solve = Parser();
-      temp = msg;
-      temp = temp.replaceAll('x', '*');
-      try{
-        Expression expr = solve.parse(temp);
-        ContextModel cm = ContextModel();
-        double ans = expr.evaluate(EvaluationType.REAL, cm);
-        output = "$ans";
-      }
-      catch(err){
-        output = "Error";
-      }
-    });
-  }
-
-  void solver(){                              // Solver based on math_expressions. Works fine and outputs it fine.
-    setState(() {
-      Parser solve = Parser();
-      temp = msg;
-      temp = temp.replaceAll('x', '*');
-      try{
-        Expression expr = solve.parse(temp);
-        ContextModel cm = ContextModel();
-        double ans = expr.evaluate(EvaluationType.REAL, cm);
-        output = "$ans";
-      }
-      catch(err){
-        output = "$temp";
-      }
-    });
-  }
 
 
   void update(x) {                              // button press to key input
@@ -71,6 +37,7 @@ class _HomePageState extends State<HomePage> {
       msg = "$msg$x";
     });
   }
+
   void all_clear() {                            // All clear - deletes all inputs
     setState(() {
       msg = "";
@@ -88,6 +55,12 @@ class _HomePageState extends State<HomePage> {
   void result () {
     setState(() {
       output = "$msg";
+    });
+  }
+
+  void solver (){
+    setState(() {
+      output = funcsolver.solve(msg);
     });
   }
 
@@ -338,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update(".");}, child: Text(".", style: GoogleFonts.lato(fontSize: 40,),),)),
                       SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("x10^");}, child: Text("x10^", style: GoogleFonts.lato(fontSize: 40,),),)),
                       SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {result();}, child: Text("ANS", style: GoogleFonts.lato(fontSize: 16,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {outputer();}, child: Text("=", style: GoogleFonts.lato(fontSize: 40,),),)),
+                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {solver();}, child: Text("=", style: GoogleFonts.lato(fontSize: 40,),),)),
                     ],
                   ),
                 ],
