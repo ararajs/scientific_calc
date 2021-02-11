@@ -4,59 +4,79 @@ import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Solver{
-  String solve(String input){
-    var temp = "";
-    Parser solve = Parser();
-    temp = input;
-    temp = temp.replaceAll("x", "*");
-    try{
-      Expression expr = solve.parse(temp);
-      ContextModel cm = ContextModel();
-      double ans = expr.evaluate(EvaluationType.REAL, cm);
-      return "$ans";
+
+
+
+
+class Button extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final String Input;
+  final String FullInput;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size});
+
+  void ButtonPressed(String input){
+    if (input == "DEL"){
+      if (FullInput != null && FullInput.length > 0) {
+        Set_Input(FullInput.substring(0, FullInput.length - 1));
+      }
     }
-    catch(err){
-      return "Error";
+    else if (input == "AC"){
+      Set_Output("0");
+      Set_Input("");
+    }
+    else if (input == "ANS"){
+      //
+    }
+    else if (input == "=") {
+        var temp = "";
+        Parser solve = Parser();
+        temp = FullInput;
+        temp = temp.replaceAll("x", "*");
+        try {
+          Expression expr = solve.parse(temp);
+          ContextModel cm = ContextModel();
+          String ans = expr.evaluate(EvaluationType.REAL, cm).toString();
+          while ((ans.contains('.') && ans.endsWith('0')) ||
+              ans.endsWith('.')) {
+            ans = ans.substring(0, ans.length - 1);
+          }
+          Set_Output(ans);
+        }
+        catch(err) {
+          Set_Output("Error");
+        }
+      }
+    else{
+      Update_Input(input.toString());
     }
   }
+
+//129, 90, 160, 0.5 for lighter purple with font size, 17, 20
+
+
+  Widget build(BuildContext context){
+    return SizedBox(
+      width: 65.0,
+      height: 55.0,
+      child: FlatButton(
+        color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+        textColor: Colors.white,
+        onPressed: () {ButtonPressed(this.Input);},
+        child:Text(this.Input.toString(), style: GoogleFonts.lato(fontSize: Size,)),
+
+      ),
+    );
+  }
+
 }
 
-class ButtonAdd{
-  List ebreturner (a,b,c,d,e) {
-    var opp;
-    opp = [
-      SizedBox(width: 65.0,
-          height: 55.0,
-          child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
-            textColor: Colors.white,
-            onPressed: () {},
-            child: Text("$a", style: GoogleFonts.lato(fontSize: 40,),),)),
-      SizedBox(width: 65.0,
-          height: 55.0,
-          child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
-            textColor: Colors.white,
-            onPressed: () {},
-            child: Text("$b", style: GoogleFonts.lato(fontSize: 40,),),)),
-      SizedBox(width: 65.0,
-          height: 55.0,
-          child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1),
-            textColor: Colors.white,
-            onPressed: () {},
-            child: Text("$c", style: GoogleFonts.lato(fontSize: 40,),),)),
-      SizedBox(width: 65.0,
-          height: 55.0,
-          child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
-            textColor: Colors.white,
-            onPressed: () {},
-            child: Text("$d", style: GoogleFonts.lato(fontSize: 17,),),)),
-      SizedBox(width: 65.0,
-          height: 55.0,
-          child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
-            textColor: Colors.white,
-            onPressed: () {},
-            child: Text("$e", style: GoogleFonts.lato(fontSize: 20,),),)),
-    ];
-    return opp;
-  }
-}
+
+
+
+
+
+

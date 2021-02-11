@@ -3,10 +3,13 @@ import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'functions.dart' as func;
+import 'functions.dart';
 
 
 void main() => runApp(MyApp());
+
+
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,44 +28,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final funcsolver = func.Solver();
-  final buttonadd = func.ButtonAdd();
-  var msg = "";
+  var input = "";
   var output = "0";
-  var temp =  "";
+  List MainColor = [37,39,50,1.0];    //For numbers
+  List SideColor = [129,90,160,0.5]; //For the side columns
 
-
-  void update(x) {                              // button press to key input
-    setState(() {
-      msg = "$msg$x";
+  void update_input(x){
+    setState((){
+      input = input + x.toString();
     });
   }
 
-  void all_clear() {                            // All clear - deletes all inputs
+  void set_input(x){
     setState(() {
-      msg = "";
+      input = x;
+    });
+  }
+
+  void set_output(x){
+    setState(() {
+      output = x;
+    });
+  }
+
+  void update(x) {
+    setState(() {
+      input = "$input$x";
+    });
+  }
+
+  void all_clear() {
+    setState(() {
+      input = "";
       output = "0";
     });
   }
   void clear (){
     setState(() {
-      if (msg != null && msg.length > 0){
-        msg = msg.substring(0, msg.length-1);    //Used to delete char by char
+      if (input != null && input.length > 0){
+        input = input.substring(0, input.length-1);
       }
     });
   }
 
   void result () {
     setState(() {
-      output = "$msg";
+      output = "$input";
     });
   }
 
-  void solver (){
-    setState(() {
-      output = funcsolver.solve(msg);
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("$msg", textScaleFactor: 2,style: TextStyle(color: Colors.white.withOpacity(1)),)
+                        Text("$input", textScaleFactor: 2,style: TextStyle(color: Colors.white.withOpacity(1)),)
                       ],
                     ),
                     Row(
@@ -274,44 +288,44 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("7");}, child: Text("7", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("8");}, child: Text("8", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("9");}, child: Text("9", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {clear();}, child: Text("DEL", style: GoogleFonts.lato(fontSize: 17,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {all_clear();}, child: Text("AC", style: GoogleFonts.lato(fontSize: 20,),),)),
+                      Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "8", Update_Input: update_input, Colorlist: MainColor,Size: 40.0,),
+                      Button(Input: "9", Update_Input: update_input, Colorlist: MainColor, Size: 40.0),
+                      Button(Input: "DEL", FullInput: input, Set_Input: set_input, Colorlist: SideColor, Size: 17.0),
+                      Button(Input: "AC", Set_Input: set_input, Set_Output: set_output, Colorlist: SideColor, Size: 20.0,),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("4");}, child: Text("4", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("5");}, child: Text("5", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("6");}, child: Text("6", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {update("x");}, child: Text("x", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {update("/");}, child: Text("/", style: GoogleFonts.lato(fontSize: 40,),),)),
+                      Button(Input:"4", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "5", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "6", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "x", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
+                      Button(Input: "/", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("1");}, child: Text("1", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("2");}, child: Text("2", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("3");}, child: Text("3", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {update("+");}, child: Text("+", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {update("-");}, child: Text("-", style: GoogleFonts.lato(fontSize: 40,),),)),
+                      Button(Input:"1", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "2", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "3", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "+", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
+                      Button(Input: "-",Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("0");}, child: Text("0", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update(".");}, child: Text(".", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(37, 39, 50, 1), textColor: Colors.white, onPressed: () {update("x10^");}, child: Text("x10^", style: GoogleFonts.lato(fontSize: 40,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {result();}, child: Text("ANS", style: GoogleFonts.lato(fontSize: 16,),),)),
-                      SizedBox(width: 65.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {solver();}, child: Text("=", style: GoogleFonts.lato(fontSize: 40,),),)),
+                      Button(Input:"0", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: ".", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                      Button(Input: "x10^", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
+                      Button(Input: "ANS", Update_Input: update_input, Colorlist: SideColor, Size: 16.0,),
+                      Button(Input: "=",FullInput: input, Set_Output: set_output, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),
                 ],
