@@ -143,10 +143,10 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
                           Button(Input:"x²", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"xⁱⁱⁱ", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"√⁽⁾", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"∛", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"xⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
 
                         ],
                       ),
