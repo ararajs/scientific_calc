@@ -8,7 +8,7 @@ import 'functions.dart';
 
 void main() => runApp(MyApp());
 
-
+//insert latex parser
 
 
 class MyApp extends StatelessWidget {
@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //insert parser function here
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,33 +142,34 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"x²", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"xⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∜", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∝", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∬", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∇", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"<", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∀", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"3", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"+", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
                     ],
@@ -180,33 +182,33 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"log10", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                          Button(Input:"log2", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                          Button(Input:"log", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                          Button(Input:"ln", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"A", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                   ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"e^", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"^", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"(", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:")", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"sqrt(", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"-", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
                     ],
