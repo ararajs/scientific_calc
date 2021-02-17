@@ -11,10 +11,11 @@ class Button extends StatelessWidget{
   final double Size;
   final String Input;
   final String FullInput;
+  final String PreviousAnswer;
   final ValueChanged<String> Set_Output;
   final ValueChanged<String> Set_Input;
   final ValueChanged<String> Update_Input;
-  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size});
+  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer});
 
   void ButtonPressed(String input){
     if (input == "DEL"){
@@ -27,12 +28,14 @@ class Button extends StatelessWidget{
       Set_Input("");
     }
     else if (input == "ANS"){
+      Update_Input("ANS");
       //
     }
     else if (input == "=") {
         var temp = "";
         Parser solve = Parser();
         temp = FullInput;
+        temp = temp.replaceAll("ANS", PreviousAnswer.toString());
         temp = temp.replaceAll("x", "*");
         try {
           Expression expr = solve.parse(temp);

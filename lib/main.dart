@@ -30,6 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var input = "";
   var output = "0";
+  var ans = '0';
   List MainColor = [37,39,50,1.0];    //For numbers
   List SideColor = [129, 90, 160, 0.8];//For the side columns
 
@@ -47,7 +48,13 @@ class _HomePageState extends State<HomePage> {
 
   void set_output(x){
     setState(() {
-      output = x;
+      if (x!=  "Error") {
+        output = x;
+        ans = x;
+      }
+      else{
+        output = x;
+      }
     });
   }
 
@@ -304,8 +311,8 @@ class _HomePageState extends State<HomePage> {
                       Button(Input:".", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(Input: "0", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(Input: "x10^", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
-                      Button(Input: "ANS", Update_Input: update_input, Colorlist: SideColor, Size: 16.0,),
-                      Button(Input: "=",FullInput: input, Set_Output: set_output, Colorlist: SideColor, Size: 40.0,),
+                      Button(Input: "ANS",PreviousAnswer: ans ,Update_Input: update_input, Colorlist: SideColor, Size: 16.0,),
+                      Button(Input: "=",PreviousAnswer: ans,FullInput: input, Set_Output: set_output, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),
                 ],
