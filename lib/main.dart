@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   var ans = '0';
   List MainColor = [37,39,50,1.0];    //For numbers
   List SideColor = [129, 90, 160, 0.8];//For the side columns
+  String _selectedText=null;
 
   void update_input(x){
     setState((){
@@ -86,6 +87,18 @@ class _HomePageState extends State<HomePage> {
 
   //insert parser function here
 
+
+  List<DropdownMenuItem<String>> _dropDownItem() {
+    List<String> dd1 = ["Basic", "Others"];
+    return dd1.map(
+            (value) =>
+            DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            )
+    ).toList();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -126,15 +139,57 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget> [
-                    SizedBox(width: 85.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Menu", style: GoogleFonts.lato(fontSize: 20,),),)),
-                    SizedBox(width: 80.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Units", style: GoogleFonts.lato(fontSize: 20,),),)),
+
+                    DropdownButton(
+                      value: _selectedText,
+                      items: _dropDownItem(),
+                      onChanged: (value){
+                        _selectedText=value;
+                        switch(value){
+                          case "Basic" :
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SecondScreen()),
+                            );
+                            break;
+                          case "Others" :
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ThirdScreen()),
+                            );
+                            break;
+                        }
+                      },
+                      hint: Text('Menu'),
+                      dropdownColor: Colors.white,
+                      icon: Icon(Icons.arrow_drop_down),
+                      iconSize: 36,
+
+                      underline: SizedBox(),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('Units', textScaleFactor: 2,),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SecondRoute() ),
+                        );
+                      },
+                    ),
+
+                    // SizedBox(width: 85.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Menu", style: GoogleFonts.lato(fontSize: 20,),),)),
+                    // SizedBox(width: 80.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Units", style: GoogleFonts.lato(fontSize: 20,),),)),
                     SizedBox(width: 70.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("<", style: GoogleFonts.lato(fontSize: 40,),),)),
                     SizedBox(width: 70.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text(">", style: GoogleFonts.lato(fontSize: 40,),),)),
                   ],
                 ),
               ],
             ),
-          ),),
+              ),),
 
           Expanded(
             flex: 4,
@@ -323,6 +378,63 @@ class _HomePageState extends State<HomePage> {
       ),
 
 
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Screen"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Third Screen"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
