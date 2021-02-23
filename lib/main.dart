@@ -144,7 +144,6 @@ class _HomePageState extends State<HomePage> {
                       value: _selectedText,
                       items: _dropDownItem(),
                       onChanged: (value){
-                        _selectedText=value;
                         switch(value){
                           case "Basic" :
                             Navigator.push(
@@ -160,9 +159,9 @@ class _HomePageState extends State<HomePage> {
                             break;
                         }
                       },
-                      hint: Text('Menu'),
+                      hint: Text('Menu',style: TextStyle(color: Colors.white,),textAlign: TextAlign.end,),
                       dropdownColor: Colors.white,
-                      icon: Icon(Icons.arrow_drop_down),
+                      icon: Icon(Icons.arrow_drop_down,color: Colors.white,),
                       iconSize: 36,
 
                       underline: SizedBox(),
@@ -172,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     FlatButton(
-                      child: Text('Units', textScaleFactor: 2,),
+                      child: Text('Units', textScaleFactor: 1.8, style: TextStyle(color: Colors.white,),),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -183,7 +182,10 @@ class _HomePageState extends State<HomePage> {
 
                     // SizedBox(width: 85.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Menu", style: GoogleFonts.lato(fontSize: 20,),),)),
                     // SizedBox(width: 80.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Units", style: GoogleFonts.lato(fontSize: 20,),),)),
-                    SizedBox(width: 70.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("<", style: GoogleFonts.lato(fontSize: 40,),),)),
+                    SizedBox(width: 70.0, height: 55.0,
+                        child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
+                          textColor: Colors.white, onPressed: () {},
+                          child: Text("<", style: GoogleFonts.lato(fontSize: 40,),),)),
                     SizedBox(width: 70.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text(">", style: GoogleFonts.lato(fontSize: 40,),),)),
                   ],
                 ),
