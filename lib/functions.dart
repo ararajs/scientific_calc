@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Button extends StatelessWidget{
   final List Colorlist;
   final double Size;
-  final String Input;
+  final  Input;
   final String FullInput;
   final String PreviousAnswer;
   final ValueChanged<String> Set_Output;
@@ -38,6 +38,7 @@ class Button extends StatelessWidget{
         temp = temp.replaceAll("ANS", PreviousAnswer.toString());
         temp = temp.replaceAll("x", "*");
         try {
+          
           Expression expr = solve.parse(temp);
           ContextModel cm = ContextModel();
           String ans = expr.evaluate(EvaluationType.REAL, cm).toString();
@@ -67,7 +68,7 @@ class Button extends StatelessWidget{
         color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
         textColor: Colors.white,
         onPressed: () {ButtonPressed(this.Input);},
-        child:Text(this.Input.toString(), style: TextStyle(fontSize: this.Size)),
+        child:Text(this.Input, style: TextStyle(fontSize: this.Size)),
       ),
     );
   }

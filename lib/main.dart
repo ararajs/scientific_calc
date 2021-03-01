@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'functions.dart';
+import 'package:flutter_math/flutter_math.dart';
+
 
 
 void main() => runApp(MyApp());
@@ -99,6 +101,8 @@ class _HomePageState extends State<HomePage> {
     ).toList();
   }
 
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -114,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("$input", textScaleFactor: 2,style: TextStyle(color: Colors.white.withOpacity(1)),)
+                        Math.tex(r'\hat f(\xi) = \int_{-\infty}^\infty {f(x)e^{- 2\pi i \xi x}\mathrm{d}x}', mathStyle: MathStyle.display, textStyle: TextStyle(color: Colors.white.withOpacity(1)),textScaleFactor: 1.5,)
                       ],
                     ),
                     Row(
@@ -221,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                           Button(Input:"logₓ", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
                           Button(Input:"ℼ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                           Button(Input:"θ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"∞", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
                           Button(Input:"∫x", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
@@ -229,11 +233,11 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                          Button(Input:"≥", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"≤", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"x⁰", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"(☐)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"deg", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
                         ],
                       ),
                     ],
@@ -268,11 +272,11 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"deg", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                          Button(Input:"∞", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                          Button(Input:"≥", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"≤", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"x⁰", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"(☐)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
                         ],
                       ),
                     ],
@@ -297,21 +301,21 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
                           Button(Input:"arctan", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∫∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"∫∫∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"⅀", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget> [
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"ℿ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                          Button(Input:"lim", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                          Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                          Button(Input:"d²/dx²", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                          Button(Input:"(☐)'", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
                         ],
                       ),
                     ],
