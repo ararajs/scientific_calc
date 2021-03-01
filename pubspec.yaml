@@ -26,14 +26,15 @@ dependencies:
 
   flutter_html: ^0.8.2
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the Cupertino Icons class for iOS style icons.
   cupertino_icons: ^1.0.0
   math_expressions: ^2.0.2
   function_tree: ^0.6.0
   google_fonts: ^1.1.1
+  webview_flutter: ^1.0.7
   flutter_math: ^0.2.1
+  petitparser: ^3.1.0
 
 
 dev_dependencies:
@@ -50,6 +51,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/index.html
 
   # To add assets to your application, add an assets section, like this:
   # assets:

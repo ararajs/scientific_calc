@@ -6,6 +6,10 @@ import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'functions.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
+import 'dart:convert';
 
 
 void main() => runApp(MyApp());
@@ -116,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("$input", textScaleFactor: 2,style: TextStyle(color: Colors.white.withOpacity(1)),)
+                        Math.tex("\p")
                       ],
                     ),
                     Row(
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                           case "Basic" :
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SecondScreen()),
+                              MaterialPageRoute(builder: (context) => BrowserPage()),
                             );
                             break;
                           case "Others" :
@@ -389,22 +393,51 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class SecondScreen extends StatelessWidget {
+class BrowserPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _BrowserPageState();
+}
+
+class _BrowserPageState extends State<BrowserPage> {
+  final Completer<WebViewController> _controller =
+  Completer<WebViewController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Screen"),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
-      ),
+        appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text("Graph")),
+        body: SafeArea(
+          child: WebView(
+              initialUrl: "",
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },
+              javascriptMode: JavascriptMode.unrestricted),
+        )
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.future.then((controller) {
+      _loadHtmlFromAssets(controller);
+    });
+  }
+
+  Future<void> _loadHtmlFromAssets(WebViewController controller) async {
+    String fileText = await rootBundle.loadString('assets/index.html');
+    String theURI = Uri.dataFromString(fileText,
+        mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+        .toString();
+
+    setState(() {
+      print(theURI);
+      controller.loadUrl(theURI);
+    });
   }
 }
 
