@@ -4,8 +4,6 @@ import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'functions.dart';
-import 'package:flutter_math/flutter_math.dart';
-
 
 
 void main() => runApp(MyApp());
@@ -101,8 +99,6 @@ class _HomePageState extends State<HomePage> {
     ).toList();
   }
 
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -118,13 +114,13 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Math.tex(r'\hat f(\xi) = \int_{-\infty}^\infty {f(x)e^{- 2\pi i \xi x}\mathrm{d}x}', mathStyle: MathStyle.display, textStyle: TextStyle(color: Colors.white.withOpacity(1)),textScaleFactor: 1.5,)
+                        Text("$input", textScaleFactor: 2,style: TextStyle(color: Colors.white.withOpacity(1)),)
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("$output", textScaleFactor: 3, style: TextStyle(color: Colors.white.withOpacity(1)),)
+                        Flexible(child: Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.white.withOpacity(1)),))
                       ],
                     )
                   ],
@@ -200,129 +196,133 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 4,
             child: Container(
-              color: Color.fromRGBO(37,39,50,1.0),
-              child: PageView(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:[
-                      Row(
+                color: Color.fromRGBO(37,39,50,1.0),
+                child: PageView(
+                    children: [
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"x²", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"xⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                        children:[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"x²", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                              Button(Input:"xⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                              Button(Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                              Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                              Button(Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
 
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"deg", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"logₓ", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                              Button(Input:"ln", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
+                              Button(Input:"ℼ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                              Button(Input:"∫x", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+
+                            ],
+                          ),
                         ],
+                        //Jun Hao - trigo
                       ),
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"logₓ", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                          Button(Input:"ℼ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"θ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                          Button(Input:"∫x", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                        children:[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"|☐|", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"(f o g)", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                              Button(Input:"f(x)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"θ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"eⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"(☐)'", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                              Button(Input:"δ/δx", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                              Button(Input:"lim", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"⅀", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"e", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"∞", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"≥", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"≤", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"x⁰", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"(☐)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+
+
+                            ],
+                          ),
                         ],
+                        // Su Quin - log functions
                       ),
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"deg", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
+                        children:[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"cot", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"csc", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"sec", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:"arcsin", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                              Button(Input:"arcos", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"arctan", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget> [
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                            ],
+                          ),
                         ],
-                      ),
-                    ],
-                    //Jun Hao - trigo
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"|☐|", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"(f o g)", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                          Button(Input:"f(x)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"ln", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"eⁿ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                        ],
-                  ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"(☐)'", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                          Button(Input:"δ/δx", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                          Button(Input:"lim", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"⅀", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"e", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"∞", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
-                          Button(Input:"≥", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"≤", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"x⁰", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"(☐)", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                        ],
-                      ),
-                    ],
-                    // Su Quin - log functions
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"cot", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"csc", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"sec", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"arcsin", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                          Button(Input:"arcos", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"arctan", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"∫∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"∫∫∫", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"⅀", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget> [
-                          Button(Input:"ℿ", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                          Button(Input:"lim", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                          Button(Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                          Button(Input:"d²/dx²", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                          Button(Input:"(☐)'", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
-                        ],
-                      ),
-                    ],
-                    // Aravind - logical operators
-                  )
-                ]
-              )
+                        // Aravind - logical operators
+                      )
+                    ]
+                )
             ),
           ),
           Expanded(
