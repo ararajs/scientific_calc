@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Basic", "Others"];
+    List<String> dd1 = ["Graph", "Others"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                       items: _dropDownItem(),
                       onChanged: (value){
                         switch(value){
-                          case "Basic" :
+                          case "Graph" :
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BrowserPage()),
