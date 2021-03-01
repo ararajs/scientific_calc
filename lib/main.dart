@@ -355,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                       Button(symb:"4", Input:"4", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(symb:"5", Input: "5", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(symb:"6", Input: "6", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                      Button(symb:"X", Input: r"\times", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
+                      Button(symb:"×", Input: r"\times", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
                       Button(symb:"÷", Input: r"\div", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),

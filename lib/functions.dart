@@ -39,7 +39,7 @@ class Button extends StatelessWidget{
         Parser solve = Parser();
         temp = FullInput;
         temp = temp.replaceAll("ANS", PreviousAnswer.toString());
-        temp = temp.replaceAll("x", "*");
+        temp = temp.replaceAll("×", "*");
         try {
           
           Expression expr = solve.parse(temp);
