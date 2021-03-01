@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_math/flutter_math.dart';
 import 'dart:math' as math;
+import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'functions.dart';
@@ -211,7 +213,6 @@ class _HomePageState extends State<HomePage> {
                               Button(Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
                               Button(Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: 30.0,),
                               Button(Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-
                             ],
                           ),
                           Row(
