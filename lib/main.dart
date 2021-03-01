@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Math.tex("\p")
+                        Math.tex("$input")
                       ],
                     ),
                     Row(
@@ -223,10 +223,10 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(Input:"sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                              Button(Input:"cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                              Button(Input:"tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
-                              Button(Input:"rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:r"\sin", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:r"\cos", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:r"\tan", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
+                              Button(Input:r"\rad", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
                               Button(Input:"deg", Update_Input: update_input, Colorlist: MainColor, Size: 15.0,),
 
                             ],
@@ -306,8 +306,8 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
                               Button(Input:"arctan", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                              Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:r"\left(\right)", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
+                              Button(Input:r"", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                               Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                               Button(Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                             ],
@@ -355,8 +355,8 @@ class _HomePageState extends State<HomePage> {
                       Button(Input:"4", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(Input: "5", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(Input: "6", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                      Button(Input: "x", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
-                      Button(Input: "/", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
+                      Button(Input: r"\times", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
+                      Button(Input: r"\div", Update_Input: update_input, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),
                   Row(
@@ -376,8 +376,8 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget> [
                       Button(Input:".", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(Input: "0", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                      Button(Input: "x10^", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
-                      Button(Input: "ANS",PreviousAnswer: ans ,Update_Input: update_input, Colorlist: SideColor, Size: 16.0,),
+                      Button(Input: r"\times 10^x", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
+                      Button(Input: r"\text{ANS}",PreviousAnswer: ans ,Update_Input: update_input, Colorlist: SideColor, Size: 16.0,),
                       Button(Input: "=",PreviousAnswer: ans,FullInput: input, Set_Output: set_output, Colorlist: SideColor, Size: 40.0,),
                     ],
                   ),

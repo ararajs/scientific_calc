@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_math/flutter_math.dart';
 
 
 
@@ -10,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Button extends StatelessWidget{
   final List Colorlist;
   final double Size;
-  final  Input;
+  final Input;
   final String FullInput;
   final String PreviousAnswer;
   final ValueChanged<String> Set_Output;
@@ -69,7 +70,7 @@ class Button extends StatelessWidget{
         color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
         textColor: Colors.white,
         onPressed: () {ButtonPressed(this.Input);},
-        child:Text(this.Input, style: TextStyle(fontSize: this.Size)),
+        child: Math.tex(Input, textStyle: TextStyle(fontSize: 20)),
       ),
     );
   }
