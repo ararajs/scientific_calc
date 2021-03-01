@@ -12,12 +12,13 @@ class Button extends StatelessWidget{
   final List Colorlist;
   final double Size;
   final Input;
+  final symb;
   final String FullInput;
   final String PreviousAnswer;
   final ValueChanged<String> Set_Output;
   final ValueChanged<String> Set_Input;
   final ValueChanged<String> Update_Input;
-  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer});
+  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb,});
 
   void ButtonPressed(String input){
     if (input == "DEL"){
@@ -70,7 +71,7 @@ class Button extends StatelessWidget{
         color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
         textColor: Colors.white,
         onPressed: () {ButtonPressed(this.Input);},
-        child: Math.tex(Input, textStyle: TextStyle(fontSize: 20)),
+        child: Text(this.symb.toString(),style: TextStyle(fontSize: this.Size),),
       ),
     );
   }
