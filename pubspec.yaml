@@ -35,6 +35,7 @@ dependencies:
   webview_flutter: ^1.0.7
   flutter_math: ^0.2.1
   petitparser: ^3.1.0
+  font_awesome_flutter: ^8.11.0
 
 
 dev_dependencies:
