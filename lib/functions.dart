@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,12 +69,26 @@ class Button extends StatelessWidget{
     return SizedBox(
       width: 65.0,
       height: 55.0,
-      child: FlatButton(
-        color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
-        textColor: Colors.white,
-        onPressed: () {ButtonPressed(this.Input);},
-        child: Text(this.symb.toString(),style: TextStyle(fontSize: this.Size),),
-      ),
+      child: Stack(children: <Widget>[
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            child: FlatButton(
+              color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+              onPressed: () {ButtonPressed(this.Input);},
+        ),
+          )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+            child: IgnorePointer(
+              ignoring: true,
+              child: Text(
+                this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+            ),
+          ),
+      ]),
     );
   }
 
@@ -82,6 +97,8 @@ class Button extends StatelessWidget{
 }
 
 
+
+List DataConv =  [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]];
 
 
 
