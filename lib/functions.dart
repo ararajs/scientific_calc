@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
-import 'package:math_expressions/math_expressions.dart';
+import 'package:math_expressions/math_expressions.dart' as me;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_math/flutter_math.dart';
+import 'package:flutter_app/mathtest.dart' as lp;
 
 
 
@@ -20,6 +21,7 @@ class Button extends StatelessWidget{
   final ValueChanged<String> Set_Input;
   final ValueChanged<String> Update_Input;
   Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb,});
+  var func_dict = [r"\tan", r"\sin", r"\ln", r"\cos", r"\cot", r"\csc", r"\sec", r"\arcsin", r"\arcos", r"arctan"];
 
   void ButtonPressed(String input){
     if (input == "DEL"){
@@ -37,26 +39,37 @@ class Button extends StatelessWidget{
     }
     else if (input == "=") {
         var temp = "";
-        Parser solve = Parser();
+        me.Parser solve = me.Parser();
         temp = FullInput;
         temp = temp.replaceAll("ANS", PreviousAnswer.toString());
-        temp = temp.replaceAll(r"\times", "*");
-        temp = temp.replaceAll(r"\div", "/");
+        lp.LaTexParser LpParser = lp.LaTexParser(temp);
+        var normal_expr = LpParser.parse().toString();
+        //temp = temp.replaceAll(r"\times", "*"); redundant now since it is taken care by latexparser
+        //temp = temp.replaceAll(r"\div", "/");
         try {
-          
-          Expression expr = solve.parse(temp);
-          ContextModel cm = ContextModel();
-          String ans = expr.evaluate(EvaluationType.REAL, cm).toString();
+          me.Expression expr = solve.parse(normal_expr);
+          me.ContextModel cm = me.ContextModel();
+          String ans = expr.evaluate(me.EvaluationType.REAL, cm).toString();
           while ((ans.contains('.') && ans.endsWith('0')) ||
               ans.endsWith('.')) {
             ans = ans.substring(0, ans.length - 1);
           }
+          if (ans.contains(".")){
+            var val = double.parse(ans);
+            ans = val.toStringAsFixed(5);
+          }
           Set_Output(ans);
         }
         catch(err) {
-          Set_Output("Error");
+          Set_Output(normal_expr.toString());
         }
       }
+
+    else if (func_dict.contains(input)){
+        Update_Input("$input");
+        Update_Input("(");
+    }
+
     else{
       Update_Input("$input");
     }
@@ -95,10 +108,6 @@ class Button extends StatelessWidget{
 
 
 }
-
-
-
-List DataConv =  [[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]];
 
 
 

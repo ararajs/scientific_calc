@@ -51,14 +51,14 @@ class LaTexParser extends Parser {
     final sqrt = (string('\\sqrt') & char('{').and()).map((v)=>['\\sqrt', 'f']);
     final nrt = (string('\\sqrt') & char('[').and()).map((v)=>['\\nrt', 'f']);
     final simplefunction =
-    ((string('\\sin') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan') | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']);
+    ((string('\\sin') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan') | string('\\ln')) & string('(').and()).pick(0).map((v)=>[v, 'f']);
     final otherfunction = (string('\\frac') | string('\\log')).map((v)=>[v, 'f']);
     final function =
     simplefunction | otherfunction | sqrt | nrt ;
 
-    final lp = (string('\\left(') | char('{') | string('\\left|') | char('[')).map((v)=>[v, 'l']);
+    final lp = (string('(') | char('{') | string('(') | char('[')).map((v)=>[v, 'l']);
 
-    final rp = (string('\\right)') | char('}') | string('\\right|') | char(']')).map((v)=>[v, 'r']);
+    final rp = (string(')') | char('}') | string('(') | char(']')).map((v)=>[v, 'r']);
 
     final plus = char('+').map((v)=>[v, ['o', 2, 'l']]);
 
@@ -241,73 +241,73 @@ class LaTexParser extends Parser {
         case '+':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left+right);
+          result.add(left + right);
           break;
         case '-':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left-right);
+          result.add(left - right);
           break;
         case '\\times':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left*right);
+          result.add(left * right);
           break;
         case '\\div':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left/right);
+          result.add(left / right);
           break;
         case '\\frac':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left/right);
+          result.add(left / right);
           break;
         case '^':
           right = result.removeLast();
           left = result.removeLast();
-          result.add(left^right);
+          result.add(left ^ right);
           break;
         case '\\sin':
           if (isRadMode) {
             result.add(Sin(result.removeLast()));
           } else {
-            result.add(Sin(result.removeLast()*Number(math.pi/180)));
+            result.add(Sin(result.removeLast() * Number(math.pi / 180)));
           }
           break;
         case '\\cos':
           if (isRadMode) {
             result.add(Cos(result.removeLast()));
           } else {
-            result.add(Cos(result.removeLast()*Number(math.pi/180)));
+            result.add(Cos(result.removeLast() * Number(math.pi / 180)));
           }
           break;
         case '\\tan':
           if (isRadMode) {
             result.add(Tan(result.removeLast()));
           } else {
-            result.add(Tan(result.removeLast()*Number(math.pi/180)));
+            result.add(Tan(result.removeLast() * Number(math.pi / 180)));
           }
           break;
         case '\\arcsin':
           if (isRadMode) {
             result.add(Asin(result.removeLast()));
           } else {
-            result.add(Asin(result.removeLast())*Number(180/math.pi));
+            result.add(Asin(result.removeLast()) * Number(180 / math.pi));
           }
           break;
         case '\\arccos':
           if (isRadMode) {
             result.add(Acos(result.removeLast()));
           } else {
-            result.add(Acos(result.removeLast())*Number(180/math.pi));
+            result.add(Acos(result.removeLast()) * Number(180 / math.pi));
           }
           break;
         case '\\arctan':
           if (isRadMode) {
             result.add(Atan(result.removeLast()));
           } else {
-            result.add(Atan(result.removeLast())*Number(180/math.pi));
+            result.add(Atan(result.removeLast()) * Number(180 / math.pi));
           }
           break;
         case '\\ln':
@@ -324,18 +324,19 @@ class LaTexParser extends Parser {
         case '\\nrt':
           left = result.removeLast();
           right = result.removeLast();
-          result.add(left^(Number(1.0)/right));
+          result.add(left ^ (Number(1.0) / right));
           break;
         case '\\abs':
           result.add(Abs(result.removeLast()));
           break;
         case '!':
           try {
-            num t = result.removeLast().evaluate(EvaluationType.REAL, ContextModel());
-            if (t.ceil() == t.floor() && t>=0 && t<20) {
+            num t = result.removeLast().evaluate(
+                EvaluationType.REAL, ContextModel());
+            if (t.ceil() == t.floor() && t >= 0 && t < 20) {
               int a = t.toInt();
               int y = 1;
-              while(a > 0) {
+              while (a > 0) {
                 y *= a;
                 a--;
               }
@@ -353,13 +354,13 @@ class LaTexParser extends Parser {
           }
       }
     }
-    if (result.length==1) {
-      return result[0];
-    } else {
-      throw 'Parse Error';
+   if (result.length == 1) {
+        return result[0];
     }
-
-  }
+   else {
+      throw 'Parse Error';
+          }
+      }
 
 }
 
