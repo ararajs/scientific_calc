@@ -5,6 +5,8 @@ import 'dart:math' as math;
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_math/flutter_math.dart';
+import 'mathmodel.dart';
+import 'latex.dart';
 
 
 
@@ -21,6 +23,7 @@ class Button extends StatelessWidget{
   final ValueChanged<String> Update_Input;
   Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb,});
 
+
   void ButtonPressed(String input){
     if (input == "DEL"){
       if (FullInput != null && FullInput.length > 0) {
@@ -31,6 +34,8 @@ class Button extends StatelessWidget{
       Set_Output("0");
       Set_Input("");
     }
+
+
     else if (input == "ANS"){
       Update_Input("ANS");
       //
