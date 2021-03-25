@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_math/flutter_math.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'dart:math' as math;
 import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -13,6 +14,7 @@ import 'dart:convert';
 import './converter_page.dart';
 import './Utilities/ui_colors.dart';
 import 'sizes_helpers.dart';
+import 'mathtest.dart';
 
 
 void main() => runApp(MyApp());
@@ -36,6 +38,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
   var input = "";
   var output = "0";
@@ -43,6 +46,22 @@ class _HomePageState extends State<HomePage> {
   List MainColor = [37,39,50,1.0];    //For numbers
   List SideColor = [129, 90, 160, 0.8];//For the side columns
   String _selectedText=null;
+
+
+  bool toggleValue = false;
+  toggleButton() {
+    setState(() {
+      toggleValue = !toggleValue;
+    });
+    //if(toggleValue = false)
+      {
+
+      }
+    //else
+      {
+
+      }
+            }
 
   void update_input(x){
     setState((){
@@ -134,7 +153,6 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-
               ),
             ),
           ),
@@ -193,11 +211,38 @@ class _HomePageState extends State<HomePage> {
 
                     // SizedBox(width: 85.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Menu", style: GoogleFonts.lato(fontSize: 20,),),)),
                     // SizedBox(width: 80.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text("Units", style: GoogleFonts.lato(fontSize: 20,),),)),
-                    SizedBox(width: 70.0, height: 55.0,
-                        child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5),
-                          textColor: Colors.white, onPressed: () {},
-                          child: Text("<", style: GoogleFonts.lato(fontSize: 40,),),)),
-                    SizedBox(width: 70.0, height: 55.0,child: FlatButton(color: Color.fromRGBO(129, 90, 160, 0.5), textColor: Colors.white, onPressed: () {}, child: Text(">", style: GoogleFonts.lato(fontSize: 40,),),)),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      height: 45,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: toggleValue ? Colors.redAccent[100]: Colors.lightGreenAccent. withOpacity(0.7)
+                      ),
+                      child: Stack(
+                        children:[ AnimatedPositioned(
+                            child: InkWell(
+                              onTap: toggleButton,
+                              child: AnimatedSwitcher(
+                                duration: Duration(milliseconds: 500),
+                                transitionBuilder: (Widget child, Animation<double> animation){
+                                  return ScaleTransition(child: child, scale: animation,);
+                                },
+                                child: toggleValue ? Text("R",textScaleFactor: 2.5, style: TextStyle(color: Colors.white,),
+                                key: UniqueKey(),
+                                ): Text("D", textScaleFactor: 2.5,style: TextStyle(color: Colors.white,),),
+
+                              )
+
+                            ),
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeIn,
+                            top: 3.0,
+                            left: toggleValue ? 60.0 : 0.0,
+                            right: toggleValue ? 0.0 : 60.0,
+                        ),
+                      ],),
+                    )
                   ],
                 ),
               ],
@@ -218,22 +263,22 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"x²", Input:"x²", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"xⁿ", Input:"xⁿ", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"√", Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"ⁿ√", Input:"ⁿ√", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"x/y", Input:"x/y", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.06,),
+                              Button(symb:"x²", Input:"^2", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"xⁿ", Input:"^", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"√", Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"e", Input:r"e", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"ℼ", Input:r"\pi", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"sin", Input:r"\sin", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.06,),
-                              Button(symb:"cos", Input:r"\cos", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.05,),
-                              Button(symb:"tan", Input:r"\tan", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.05,),
-                              Button(symb:"rad", Input:r"\rad", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.05,),
-                              Button(symb:")", Input:")", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.05,),
+                              Button(symb:"sin", Input:r"\sin", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"cos", Input:r"\cos", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan", Input:r"\tan", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"logₓ", Input:r"\log", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"ln", Input:r"\ln", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
                             ],
                           ),
@@ -241,11 +286,13 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"logₓ", Input:"log", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.045,),
-                              Button(symb:"ln", Input:r"\ln", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"ℼ", Input:"ℼ", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
-                              Button(symb:"d/dx", Input:"d/dx", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.04,),
-                              Button(symb:"∫x", Input:"∫x", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                              Button(symb:"sin⁻¹", Input:r"\arcsin", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"cos⁻¹", Input:r"\arccos", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan⁻¹", Input:r"\arctan", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"(", Input:"(", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:")", Input:")", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
+
 
                             ],
                           ),
@@ -304,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"csc", Input:r"\csc", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
                               Button(symb:"sec", Input:r"\sec", Update_Input: update_input, Colorlist: MainColor, Size: 20.0,),
                               Button(symb:"arcsin", Input:r"\arcsin", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
-                              Button(symb:"arcos", Input:r"\arcos", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
+                              Button(symb:"arcos", Input:r"\arccos", Update_Input: update_input, Colorlist: MainColor, Size: 10.0,),
                             ],
                           ),
                           Row(

@@ -6,9 +6,7 @@ import 'package:math_expressions/math_expressions.dart' as me;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_math/flutter_math.dart';
 import 'package:flutter_app/mathtest.dart' as lp;
-
-
-
+import 'main.dart';
 
 class Button extends StatelessWidget{
   final List Colorlist;
@@ -106,10 +104,7 @@ class Button extends StatelessWidget{
   }
 
 
-
 }
-
-
 
 
 
