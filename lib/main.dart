@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_math/flutter_math.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'dart:math' as math;
 import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/services.dart';
@@ -15,20 +13,33 @@ import './converter_page.dart';
 import './Utilities/ui_colors.dart';
 import 'sizes_helpers.dart';
 import 'mathtest.dart';
+import "package:provider/provider.dart";
+import "math_server.dart";
 
 
-void main() => runApp(MyApp());
+void main() {
+  final Server _server = Server();
+  _server.start();
+  runApp(MyApp());
+}
 
 //insert latex parser
 
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        Provider(create: (context) => MathBoxController()),
+        ChangeNotifierProvider<MathModel>(
+          create: (context) => MathModel()
+        )],
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
-
+    )
     );
   }
 }
@@ -46,6 +57,13 @@ class _HomePageState extends State<HomePage> {
   List MainColor = [37,39,50,1.0];    //For numbers
   List SideColor = [129, 90, 160, 0.8];//For the side columns
   String _selectedText=null;
+
+  void initState() {
+    super.initState();
+  }
+  void disposeState() {
+    super.dispose();
+  }
 
 
   bool toggleValue = false;
@@ -128,33 +146,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+    final mathBoxController =
+    Provider.of<MathBoxController>(context, listen: false);
+    final mathModel = Provider.of<MathModel>(context, listen: false);
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: Column(
         children: <Widget> [
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Container(
-              width: displayWidth(context),
-              color: Color.fromRGBO(37, 39, 50, 1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Math.tex("$input", textScaleFactor: 3.5, textStyle: TextStyle(color: Colors.white),)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Flexible(child: Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.white.withOpacity(1)),))
-                      ],
-                    )
-                  ],
-              ),
-            ),
+              child: LatexScreen(),
+              height: 500,
+            )
+          ),
+            Container(
+              alignment: Alignment.bottomRight,
+                child: Consumer<MathModel>(
+                    builder: (__, model, ___) {
+                      output = model.result;
+                      return(Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
+                    }
+            )
           ),
           Expanded(
             flex: 1,
@@ -398,8 +412,8 @@ class _HomePageState extends State<HomePage> {
                       Button(symb:"7", Input:"7", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(symb:"8", Input: "8", Update_Input: update_input, Colorlist: MainColor,Size: 40.0,),
                       Button(symb:"9", Input: "9", Update_Input: update_input, Colorlist: MainColor, Size: 40.0),
-                      Button(symb:"DEL", Input: "DEL", FullInput: input, Set_Input: set_input, Colorlist: SideColor, Size: 17.0),
-                      Button(symb:"AC", Input: "AC", Set_Input: set_input, Set_Output: set_output, Colorlist: SideColor, Size: 20.0,),
+                      delButton(Colorlist: SideColor, Size: 17.0),
+                      delAllButton(Colorlist: SideColor, Size: 20.0),
                     ],
                   ),
                   Row(
@@ -430,9 +444,9 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget> [
                       Button(symb:".", Input:".", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
                       Button(symb:"0", Input: "0", Update_Input: update_input, Colorlist: MainColor, Size: 40.0,),
-                      Button(symb:"10^x", Input: r"\times 10^x", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
-                      Button(symb:"ANS", Input: r"\text{ANS}",PreviousAnswer: ans ,Update_Input: update_input, Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
-                      Button(symb:"=", Input: "=",PreviousAnswer: ans,FullInput: input, Set_Output: set_output, Colorlist: SideColor, Size: 40.0,),
+                      Button(symb:"10^x", Input: "*", Update_Input: update_input, Colorlist: MainColor, Size: 13.0,),
+                      Button(symb:"ANS", Input: "\\text{ANS}",PreviousAnswer: ans ,Update_Input: update_input, Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
+                      eqButton(Colorlist: SideColor, Size: 20.0),
                     ],
                   ),
                 ],

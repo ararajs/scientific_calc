@@ -51,14 +51,14 @@ class LaTexParser extends Parser {
     final sqrt = (string('√')).map((v)=>['\√', 'f']);
     final nrt = (string('\\sqrt') & char('[').and()).map((v)=>['\\nrt', 'f']);
     final simplefunction =
-    ((string('\\sin') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan') | string('\\ln')) & string('(').and()).pick(0).map((v)=>[v, 'f']);
-    final otherfunction = (string('\\frac') | string('\\log')).map((v)=>[v, 'f']);
+    ((string('\\sin') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan')  | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']);
+    final otherfunction = (string('\\frac')| string("\\log") ).map((v)=>[v, 'f']);
     final function =
     simplefunction | otherfunction | sqrt | nrt ;
 
-    final lp = (string('(') | char('{') | string('(') | char('[')).map((v)=>[v, 'l']);
+    final lp = (string('\\left(') | char('{') | string('(') | char('[')).map((v)=>[v, 'l']);
 
-    final rp = (string(')') | char('}') | string('(') | char(']')).map((v)=>[v, 'r']);
+    final rp = (string('\\right)') | char('}') | string('(') | char(']')).map((v)=>[v, 'r']);
 
     final plus = char('+').map((v)=>[v, ['o', 2, 'l']]);
 
