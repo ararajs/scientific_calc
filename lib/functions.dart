@@ -15,16 +15,31 @@ class Button extends StatelessWidget{
   final double Size;
   final Input;
   final symb;
+  final List InputList;
   final String FullInput;
   final String PreviousAnswer;
   final ValueChanged<String> Set_Output;
   final ValueChanged<String> Set_Input;
   final ValueChanged<String> Update_Input;
-  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb,});
+  Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
 
 
   Widget build(BuildContext context){
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+
+    void LoopInput(List input){
+      if (input == null){
+        mathBoxController.addExpression(Input);
+      }
+      else{
+        for (var i=0; i < input.length; i++){
+          mathBoxController.addExpression(input[i]);
+        }
+      }
+    }
+
+
+
     return SizedBox(
       width: 65.0,
       height: 55.0,
@@ -34,7 +49,7 @@ class Button extends StatelessWidget{
           child: Container(
             child: FlatButton(
               color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
-              onPressed: () {mathBoxController.addExpression(Input);},
+              onPressed: () {LoopInput(InputList);},
         ),
           )
 
@@ -207,3 +222,70 @@ class eqButton extends StatelessWidget{
 }
 
 
+class RightButton extends StatelessWidget{
+  final List Colorlist;
+  final Size;
+  RightButton({this.Size, this.Colorlist});
+
+  Widget build (BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    return SizedBox(
+      width: 65.0,
+      height: 55.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: () {mathBoxController.addKey("Right");},
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              ">",style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+class LeftButton extends StatelessWidget{
+  final List Colorlist;
+  final Size;
+  LeftButton({this.Size, this.Colorlist});
+
+  Widget build (BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    return SizedBox(
+      width: 65.0,
+      height: 55.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: () {mathBoxController.addKey("Left");},
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              "<",style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+}
