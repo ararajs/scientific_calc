@@ -229,21 +229,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                         Row(
                           children: [
-                            LeftButton(Colorlist: SideColor, Size: 25.0),
+                            LeftButton(Colorlist: SideColor, Size: 30.0),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
-                                  child: LeftButton(Colorlist: SideColor, Size: 25.0),
+                                  child: UpButton(Colorlist: SideColor, Size: 25.0),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
-                                  child: LeftButton(Colorlist: SideColor, Size: 25.0),
+                                  child: DownButton(Colorlist: SideColor, Size: 25.0),
                                 ),
                               ],
                             ),
-                            RightButton(Colorlist: SideColor, Size: 25.0),
+                            RightButton(Colorlist: SideColor, Size: 30.0),
                           ],
                         ),
 

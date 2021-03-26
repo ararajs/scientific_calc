@@ -289,3 +289,71 @@ class LeftButton extends StatelessWidget{
     );
   }
 }
+
+class UpButton extends StatelessWidget{
+  final List Colorlist;
+  final Size;
+  UpButton({this.Size, this.Colorlist});
+
+  Widget build (BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    return SizedBox(
+      width: 43.0,
+      height: 30.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: () {mathBoxController.addKey("Up");},
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              "∧",style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+class DownButton extends StatelessWidget{
+  final List Colorlist;
+  final Size;
+  DownButton({this.Size, this.Colorlist});
+
+  Widget build (BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    return SizedBox(
+      width: 43.0,
+      height: 30.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: () {mathBoxController.addKey("Down");},
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              "∨",style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+}
