@@ -42,7 +42,7 @@ class Button extends StatelessWidget{
 
     return SizedBox(
       width: 65.0,
-      height: 55.0,
+      height: 35.0,
       child: Stack(children: <Widget>[
         Align(
           alignment: Alignment.center,
@@ -78,7 +78,7 @@ class delButton extends StatelessWidget{
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
     return SizedBox(
       width: 65.0,
-      height: 55.0,
+      height: 35.0,
       child: Stack(children: <Widget>[
         Align(
             alignment: Alignment.center,
@@ -112,7 +112,7 @@ class delAllButton extends StatelessWidget{
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
     return SizedBox(
       width: 65.0,
-      height: 55.0,
+      height: 35.0,
       child: Stack(children: <Widget>[
         Align(
             alignment: Alignment.center,
@@ -196,7 +196,7 @@ class eqButton extends StatelessWidget{
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
     return SizedBox(
       width: 65.0,
-      height: 55.0,
+      height: 35.0,
       child: Stack(children: <Widget>[
         Align(
             alignment: Alignment.center,
@@ -230,8 +230,8 @@ class RightButton extends StatelessWidget{
   Widget build (BuildContext context){
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
     return SizedBox(
-      width: 65.0,
-      height: 55.0,
+      width: 43.0,
+      height: 30.0,
       child: Stack(children: <Widget>[
         Align(
             alignment: Alignment.center,
@@ -264,8 +264,8 @@ class LeftButton extends StatelessWidget{
   Widget build (BuildContext context){
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
     return SizedBox(
-      width: 65.0,
-      height: 55.0,
+      width: 43.0,
+      height: 30.0,
       child: Stack(children: <Widget>[
         Align(
             alignment: Alignment.center,

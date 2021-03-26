@@ -1,7 +1,6 @@
 import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'dart:math' as math;
-import 'main.dart';
 
 
 
@@ -25,6 +24,7 @@ abstract class Parser {
 class LaTexParser extends Parser {
   final String inputString;
   final bool isRadMode;
+
   LaTexParser(this.inputString, {this.isRadMode = true}) : super(inputString, isRadMode);
 
   @override
@@ -48,7 +48,7 @@ class LaTexParser extends Parser {
 
     final basic = (number | pi | e | variable).map((v)=>[v, 'b']);
 
-    final sqrt = (string('√')).map((v)=>['\√', 'f']);
+    final sqrt = (string('\\sqrt') & char('{').and()).map((v)=>['\\sqrt', 'f']);
     final nrt = (string('\\sqrt') & char('[').and()).map((v)=>['\\nrt', 'f']);
     final simplefunction =
     ((string('\\sin') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan')  | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']);
@@ -318,7 +318,7 @@ class LaTexParser extends Parser {
           left = result.removeLast();
           result.add(Log(left, right));
           break;
-        case '√':
+        case '\\sqrt':
           result.add(Root.sqrt(result.removeLast()));
           break;
         case '\\nrt':
