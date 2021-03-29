@@ -16,6 +16,7 @@ import 'sizes_helpers.dart';
 import 'mathtest.dart';
 import "package:provider/provider.dart";
 import "math_server.dart";
+import "package:flutter_app/settingspage.dart";
 
 
 void main() {
@@ -34,8 +35,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (context) => MathBoxController()),
-        ChangeNotifierProvider<MathModel>(
-          create: (context) => MathModel()
+        ChangeNotifierProvider(create: (_) => SettingModel()),
+        ChangeNotifierProxyProvider<SettingModel, MathModel>(
+          create: (context) => MathModel(),
+          update: (context, settings, model) => model
+            ..changeSetting(
+              precision: settings.precision.toInt(),
+              isRadMode: settings.isRadMode
+            ),
         )],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -136,7 +143,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Graph", "Others"];
+    List<String> dd1 = ["Graph", "Others", "Settings"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -203,6 +210,12 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => ThirdScreen()),
+                            );
+                            break;
+                          case "Settings" :
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SettingPage()),
                             );
                             break;
                         }

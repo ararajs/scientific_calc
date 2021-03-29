@@ -141,12 +141,19 @@ class MathModel with ChangeNotifier {
   String _expression = '';
   String _result = '';
   bool _isClearable = false;
+  int _precision;
+  bool _isRadMode;
 
   AnimationController equalAnimation;
 
   String get result => _result;
   void updateExpression(String expression) {
     _expression = expression;
+  }
+
+  void changeSetting({int precision, bool isRadMode}) {
+    this._precision = precision;
+    this._isRadMode = isRadMode;
   }
 
   void changeClearable(bool b) {
@@ -165,7 +172,7 @@ class MathModel with ChangeNotifier {
       _result = '';
     } else {
       try {
-        lp.LaTexParser LParser = lp.LaTexParser(_expression);
+        lp.LaTexParser LParser = lp.LaTexParser(_expression, isRadMode: _isRadMode);
         me.Expression mathexp = LParser.parse();
         me.ContextModel cm = me.ContextModel();
         String ans = mathexp.evaluate(me.EvaluationType.REAL, cm).toString();
@@ -175,7 +182,7 @@ class MathModel with ChangeNotifier {
         }
         if (ans.contains(".")){
           var val = double.parse(ans);
-          ans = val.toStringAsFixed(5);
+          ans = val.toStringAsFixed(_precision);
         }
         _result = ans;
       }
