@@ -10,7 +10,7 @@ import "package:flutter/services.dart";
 import "package:flutter_app/functions.dart";
 
 
-class Server {
+class Server {    //localhost:8080/assets/index.html
   // class from inAppBrowser
 
   HttpServer _server;
@@ -152,7 +152,7 @@ class MathBoxController {
 
   void addString(String msg) {
     assert(_webViewController != null);
-    _webViewController.evaluateJavascript("addString('$msg')");
+    _webViewController.evaluateJavascript("addString('$msg')");    //
   }
 
   void equal() {

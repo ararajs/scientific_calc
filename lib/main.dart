@@ -271,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget> [
                               Button(symb:"x²", InputList: ["^", "2"], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"xⁿ", Input:"^", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"√", Input:"√", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"√", Input:"\\sqrt", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"e", Input:r"\e", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"ℼ", Input:r"\pi", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
@@ -281,10 +281,10 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
                               Button(symb:"sin", InputList:[r"\sin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"cos", InputList:[r"\sin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"tan", InputList:[r"\sin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"cos", InputList:[r"\cos", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan", InputList:[r"\tan", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"log", InputList: [r"\log","_","10","","("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"ln", InputList:[r"\log","_","2.71828","","("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"ln", InputList:[r"\ln","("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
                             ],
                           ),
@@ -314,9 +314,9 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget> [
                               Button(symb:"x/y", Input:"/", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"eⁿ", Input:["e", "^"], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"ⁿ√", InputList:["√", "^"], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"ⁿ√", InputList:["\\\\nthroot"], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"d/dx", Input:"", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"∫x", Input: "", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"∫x", Input: "\\int", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
