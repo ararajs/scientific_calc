@@ -51,7 +51,7 @@ class LaTexParser extends Parser {
     final sqrt = (string('\\sqrt') & char('{').and()).map((v)=>['\\sqrt', 'f']);
     final nrt = (string('\\sqrt') & char('[').and()).map((v)=>['\\nrt', 'f']);
     final simplefunction =
-    (((string('\\sin')  |  string('\\sec') | string('\\csc') | string('\\cot') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan')  | string('\\arcsec') | string('\\arccsc') | string('\\arccot') | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']));
+    (((string('\\sin')  |  string('\\sec') | string('\\csc') | string('\\cot') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan')  | string('\\operatorname{arcsec}') | string('\\operatorname{arccsc}') | string('\\operatorname{arccot}') | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']));
     final otherfunction = (string('\\frac')| string("\\log") ).map((v)=>[v, 'f']);
     final function =
     simplefunction | otherfunction | sqrt | nrt ;
@@ -331,21 +331,21 @@ class LaTexParser extends Parser {
             result.add(Atan(result.removeLast()) * Number(180 / math.pi));
           }
           break;
-        case '\\arccsc':
+        case '\\operatorname{arccsc}':
           if (isRadMode) {
             result.add(Acsc(result.removeLast()));
           } else {
             result.add(Acsc(result.removeLast()) * Number(180 / math.pi));
           }
           break;
-        case '\\arcsec':
+        case '\\operatorname{arcsec}':
           if (isRadMode) {
             result.add(Asec(result.removeLast()));
           } else {
             result.add(Asec(result.removeLast()) * Number(180 / math.pi));
           }
           break;
-        case '\\arccot':
+        case '\\operatorname{arccot}':
           if (isRadMode) {
             result.add(Acot(result.removeLast()));
           } else {
