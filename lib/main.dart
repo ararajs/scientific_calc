@@ -17,6 +17,8 @@ import 'mathtest.dart';
 import "package:provider/provider.dart";
 import "math_server.dart";
 import "package:flutter_app/settingspage.dart";
+import 'package:complex/complex.dart' as complex1;
+import 'package:linalg/linalg.dart';
 
 
 void main() {
