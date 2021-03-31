@@ -309,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget> [
                               Button(symb:"sin⁻¹", InputList:[r"\arcsin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"cos⁻¹", InputList:[r"\arccos", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"tan⁻¹", InputList:[r"\arcsin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan⁻¹", InputList:[r"\arctan", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"(", Input:"(", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:")", Input:")", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
