@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             FirstScreen(),
             SecondScreen(),
-            ThirdScreen(),
+            FourthScreen(),
             FifthScreen(),
           ],
         ),

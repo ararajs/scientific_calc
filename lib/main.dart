@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/quadratic.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'dart:math' as math;
 import 'package:petitparser/petitparser.dart';
@@ -17,10 +18,8 @@ import 'mathtest.dart';
 import "package:provider/provider.dart";
 import "math_server.dart";
 import "package:flutter_app/settingspage.dart";
-
+import 'package:complex/complex.dart' as complex1;
 import 'package:linalg/linalg.dart';
-import './quadratic.dart';
-
 
 
 void main() {
@@ -147,7 +146,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Graph", "Others","Quadratic", "Settings"];
+    List<String> dd1 = ["Graph", "Matrices", "Settings","Equations"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -174,11 +173,12 @@ class _HomePageState extends State<HomePage> {
             flex: 4,
             child: Container(
               child: LatexScreen(),
-              height: 500,
+              height: displayHeight(context),
             )
           ),
           Container(
               alignment: Alignment.bottomRight,
+                height: displayHeight(context)*0.08,
                 child: Consumer<MathModel>(
                     builder: (__, model, ___) {
                       output = model.result;
@@ -204,22 +204,22 @@ class _HomePageState extends State<HomePage> {
                       items: _dropDownItem(),
                       onChanged: (value){
                         switch(value){
+                          case "Equations":
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TabsPage()),
+                            );
+                            break;
                           case "Graph" :
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BrowserPage()),
                             );
                             break;
-                          case "Quadratic" :
+                          case "Matrices" :
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => TabsPage()),
-                            );
-                            break;
-                          case "Others" :
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => FourthScreen()),
+                              MaterialPageRoute(builder: (context) => ThirdScreen()),
                             );
                             break;
                           case "Settings" :
@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"xⁿ", Input:"^", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"√", Input:"\\sqrt", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"e", Input:r"\e", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"ℼ", Input:r"\pi", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"𝝅", Input:r"\pi", Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
@@ -305,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget> [
                               Button(symb:"sin", InputList:[r"\sin", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"cos", InputList:[r"\cos", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"tan", InputList:[r"\tan", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan", InputList:[r"\\tan", "("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"log", InputList: [r"\log","_","10","","("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"ln", InputList:[r"\ln","("], Update_Input: update_input, Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
@@ -488,6 +488,7 @@ class _BrowserPageState extends State<BrowserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            backgroundColor: Color.fromRGBO(129, 90, 160, 1),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text("Graph")),
@@ -523,24 +524,132 @@ class _BrowserPageState extends State<BrowserPage> {
   }
 }
 
-class FourthScreen extends StatelessWidget {
+class ThirdScreen extends StatelessWidget {
   @override
+  List MainColor = [37,39,50,1.0];    //For numbers
+  List SideColor = [129, 90, 160, 0.8];//For the side columns
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Third Screen"),
+        title: Text("Matrices"),
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
-      ),
+      body: Column(
+        children: [
+          Expanded(
+              flex: 1,
+              child: LatexScreen()),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                      Button(symb:"1", Input:"", Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                    ],
+                  ),
+                ],
+
+              ) ,
+            ),),
+          Expanded(
+            flex: 1,
+            child: Container(
+              width: displayWidth(context),
+              color: Color.fromRGBO(37, 39, 50, 1),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"7", Input:"7", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"8", Input: "8", Colorlist: MainColor,Size: displayWidth(context) * 0.08,),
+                      Button(symb:"9", Input: "9",  Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      delButton(Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
+                      delAllButton(Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"4", Input:"4",Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"5", Input: "5",Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"6", Input: "6", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"×", Input: "\\\\times", Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"÷", Input: r"\div", Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:"1", Input:"1", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"2", Input: "2", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"3", Input: "3", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"+", Input: "+", Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"-", Input: "-", Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget> [
+                      Button(symb:".", Input:".", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"0", Input: "0", Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
+                      Button(symb:"10^x", InputList: ["\\\\times","10", "^"], Colorlist: MainColor, Size: displayWidth(context) * 0.04,),
+                      eqButton(Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      )
+            
     );
   }
 }
+
 
 class SecondRoute extends StatelessWidget {
   @override
