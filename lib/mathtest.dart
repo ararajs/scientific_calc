@@ -289,7 +289,27 @@ class LaTexParser extends Parser {
             result.add(Tan(result.removeLast() * Number(math.pi / 180)));
           }
           break;
-
+        case '\\sec':
+          if (isRadMode) {
+            result.add(Sec(result.removeLast()));
+          } else {
+            result.add(Sec(result.removeLast() * Number(math.pi / 180)));
+          }
+          break;
+        case '\\csc':
+          if (isRadMode) {
+            result.add(Csc(result.removeLast()));
+          } else {
+            result.add(Csc(result.removeLast() * Number(math.pi / 180)));
+          }
+          break;
+        case '\\cot':
+          if (isRadMode) {
+            result.add(Cot(result.removeLast()));
+          } else {
+            result.add(Cot(result.removeLast() * Number(math.pi / 180)));
+          }
+          break;
         case '\\arcsin':
           if (isRadMode) {
             result.add(Asin(result.removeLast()));
@@ -311,8 +331,27 @@ class LaTexParser extends Parser {
             result.add(Atan(result.removeLast()) * Number(180 / math.pi));
           }
           break;
-
-
+        case '\\arccsc':
+          if (isRadMode) {
+            result.add(Acsc(result.removeLast()));
+          } else {
+            result.add(Acsc(result.removeLast()) * Number(180 / math.pi));
+          }
+          break;
+        case '\\arcsec':
+          if (isRadMode) {
+            result.add(Asec(result.removeLast()));
+          } else {
+            result.add(Asec(result.removeLast()) * Number(180 / math.pi));
+          }
+          break;
+        case '\\arccot':
+          if (isRadMode) {
+            result.add(Acot(result.removeLast()));
+          } else {
+            result.add(Acot(result.removeLast()) * Number(180 / math.pi));
+          }
+          break;
         case '\\ln':
           result.add(Ln(result.removeLast()));
           break;
