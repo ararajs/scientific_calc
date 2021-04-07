@@ -116,7 +116,7 @@ class _FifthScreenState extends State<FifthScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text('ax + bx² + cx + d = 0',
+                  Text('ax³ + bx² + cx + d = 0',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.red),
                       textAlign: TextAlign.center),
                 ],
@@ -159,7 +159,7 @@ class _FifthScreenState extends State<FifthScreen> {
                     width: 150,
                     child: TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'coefficent of x²'
+                          labelText: 'coefficent of x³'
                       ),
                       controller: t1,
                       keyboardType: TextInputType.number,
