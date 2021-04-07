@@ -17,8 +17,10 @@ import 'mathtest.dart';
 import "package:provider/provider.dart";
 import "math_server.dart";
 import "package:flutter_app/settingspage.dart";
-import 'package:complex/complex.dart' as complex1;
+
 import 'package:linalg/linalg.dart';
+import './quadratic.dart';
+
 
 
 void main() {
@@ -145,7 +147,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Graph", "Others", "Settings"];
+    List<String> dd1 = ["Graph", "Others","Quadratic", "Settings"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -208,10 +210,16 @@ class _HomePageState extends State<HomePage> {
                               MaterialPageRoute(builder: (context) => BrowserPage()),
                             );
                             break;
+                          case "Quadratic" :
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TabsPage()),
+                            );
+                            break;
                           case "Others" :
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ThirdScreen()),
+                              MaterialPageRoute(builder: (context) => FourthScreen()),
                             );
                             break;
                           case "Settings" :
@@ -515,7 +523,7 @@ class _BrowserPageState extends State<BrowserPage> {
   }
 }
 
-class ThirdScreen extends StatelessWidget {
+class FourthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

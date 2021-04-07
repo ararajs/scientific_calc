@@ -76,8 +76,11 @@ class _ConversionPageState extends State<ConversionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: new Stack(
+    return Scaffold(
+    appBar: AppBar(
+       title: Text('Unit Converter'),
+    ),
+       body:  Stack(
         children: <Widget>[
           new Column(
             children: <Widget>[
