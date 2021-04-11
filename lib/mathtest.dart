@@ -1,7 +1,9 @@
 import 'package:petitparser/petitparser.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'dart:math' as math;
-
+import 'package:scidart/numdart.dart';
+import 'package:linalg/linalg.dart';
+import 'package:flutter_app/functions.dart';
 
 
 abstract class Parser {
@@ -42,8 +44,9 @@ class LaTexParser extends Parser {
     (char('.') & integer).pick(1).optional() &
     (char('E') & pattern('+-').optional() & integer).optional()).flatten().map(num.parse);
 
-    final pi = string('\\pi').map((a)=>math.pi);
-    final e = char('e').map((a)=>math.e);
+    final pi = string('\\pi').trim().map((a)=>math.pi);
+    final e = char('e').trim().map((a)=>math.e);
+    final i = char('i').map((a)=>Complex());
     final variable = pattern('xy');
 
     final basic = (number | pi | e | variable).map((v)=>[v, 'b']);
@@ -52,7 +55,7 @@ class LaTexParser extends Parser {
     final nrt = (string('\\sqrt') & char('[').and()).map((v)=>['\\nrt', 'f']);
     final simplefunction =
     (((string('\\sin')  |  string('\\sec') | string('\\csc') | string('\\cot') | string('\\cos') | string('\\tan') | string('\\arcsin') | string('\\arccos') | string('\\arctan')  | string('\\arcsec') | string('\\arccsc') | string('\\arccot') | string('\\ln')) & string('\\left(').and()).pick(0).map((v)=>[v, 'f']));
-    final otherfunction = (string('\\frac')| string("\\log") ).map((v)=>[v, 'f']);
+    final otherfunction = (string('\\frac')|string('\\int')| string("\\log") ).map((v)=>[v, 'f']);
     final function =
     simplefunction | otherfunction | sqrt | nrt ;
 
@@ -64,15 +67,15 @@ class LaTexParser extends Parser {
 
     final minus = char('-').map((v)=>[v, ['o', 2, 'l']]);
 
-    final times = string('\\times').map((v)=>[v, ['o', 3, 'l']]);
+    final times = string('\\times').trim().map((v)=>[v, ['o', 3, 'l']]);
 
-    final divide = string('\\div').map((v)=>[v, ['o', 3, 'l']]);
+    final divide = string('\\div').trim().map((v)=>[v, ['o', 3, 'l']]);
 
-    final expo = char('^').map((v)=>[v, ['o', 4, 'r']]);
+    final expo = char('^').trim().map((v)=>[v, ['o', 4, 'r']]);
 
-    final factorial = char('!').map((v)=>[v, ['o', 5, 'l']]);
+    final factorial = char('!').trim().map((v)=>[v, ['o', 5, 'l']]);
 
-    final percent = string('\\%').map((v)=>[v, ['o', 5, 'l']]);
+    final percent = string('\\%').trim().map((v)=>[v, ['o', 5, 'l']]);
 
     final oper = plus | minus | times | divide | expo | factorial | percent;
 
@@ -80,7 +83,8 @@ class LaTexParser extends Parser {
 
     final underline = char('_');
 
-    final other = (subnumber | underline).map((v)=>[v, 'u']);
+
+    final other = (subnumber | underline ).map((v)=>[v, 'u']);
 
     final tokenize = (basic | function | lp | rp | oper | other).star().end();
 
@@ -97,6 +101,7 @@ class LaTexParser extends Parser {
       /// wrong syntax: fr fo lr lo oo (b/r postfix or wrong)
       /// need times: bb bf bl rb rf !f !l
       /// negative number: -(bfl) / l-(bfl)
+
 
       // negative number
       if (i>0 && i<_stream.length-1 && _stream[i-1][1]=='l' && _stream[i][0]=='-' && _stream[i+1][1].contains(RegExp(r'[bfl]'))) {
@@ -289,6 +294,10 @@ class LaTexParser extends Parser {
             result.add(Tan(result.removeLast() * Number(math.pi / 180)));
           }
           break;
+        case '\\int':
+          {
+          }
+          break;
         case '\\sec':
           if (isRadMode) {
             result.add(Sec(result.removeLast()));
@@ -390,7 +399,7 @@ class LaTexParser extends Parser {
           break;
         default:
           if (_outputStack[i] is String) {
-            result.add(Variable(_outputStack[i]));
+              result.add(Variable(_outputStack[i]));
           } else {
             result.add(Number(_outputStack[i]));
           }
@@ -406,4 +415,148 @@ class LaTexParser extends Parser {
 
 }
 
+class MatrixParser extends Parser {
+  final String inputString;
+  final bool isRadMode;
+  final int precision;
+  bool square;
+  bool single;
+
+  MatrixParser(this.inputString, {this.isRadMode = true, this.precision = 10})
+      : super(inputString, isRadMode);
+
+  @override
+  void tokenize() {
+    final matrix = (string('\\begin{bmatrix}') & any().starLazy(
+        string('\\end{bmatrix}')).flatten() & string('\\end{bmatrix}'))
+        .pick(1)
+        .map((v) => [v, 'b']);
+
+    final plus = char('+').map((v) => [v, ['o', 2]]);
+
+    final minus = char('-').map((v) => [v, ['o', 2]]);
+
+    final times = string('\\times').map((v) => [v, ['o', 3]]);
+
+    final divide = string('\\div').map((v) => [v, ['o', 3]]);
+
+    final oper = plus | minus | times | divide;
+
+    final tokenize = (matrix | oper).star().end();
+
+    _stream = tokenize
+        .parse(inputString)
+        .value;
+
+    for (var i = 0; i < _stream.length; i++) {
+      if (i < _stream.length - 1 && _stream[i][1] == 'b' &&
+          _stream[i + 1][1] == 'b') {
+        _stream.insert(i + 1, ['\\times', ['o', 3]]);
+        i++;
+      }
+    }
+
+    if (_stream.length == 1 && _stream[0][1] == 'b') {
+      single = true;
+    } else {
+      single = false;
+    }
+  }
+
+  void matrixParse() {
+    for (var i = 0; i < _stream.length; i++) {
+      if (_stream[i][1] == 'b' && _stream[i][0] is String) {
+        List<List<double>> source = [];
+        final rows = _stream[i][0].split('\\\\');
+        for (var i = 0; i < rows.length; i++) {
+          final columns = rows[i].split('&');
+          source.add([]);
+          for (var j = 0; j < columns.length; j++) {
+            final lp = LaTexParser(columns[j]);
+            Expression mathexp = lp.parse();
+            ContextModel cm = ContextModel();
+            double val = mathexp.evaluate(EvaluationType.REAL, cm);
+            source[i].add(val);
+          }
+        }
+        _stream[i][0] = Matrix(source);
+        if (single && _stream[i][0].m == _stream[i][0].n) {
+          square = true;
+        } else {
+          square = false;
+        }
+      }
+    }
+  }
+
+  @override
+  void shuntingyard() {
+    for (var i = 0; i < _stream.length; i++) {
+      switch (_stream[i][1]) {
+        case 'b':
+          _outputStack.add(_stream[i][0]);
+          break;
+        default:
+          while (true) {
+            if (_operStack.length <= 0) {
+              break;
+            }
+            if (_operStack.last[1] is List &&
+                _operStack.last[1][1] > _stream[i][1][1]) {
+              _outputStack.add(_operStack.last[0]);
+              _operStack.removeLast();
+              continue;
+            }
+            break;
+          }
+          _operStack.add(_stream[i]);
+      }
+    }
+    while (_operStack.length > 0) {
+      _outputStack.add(_operStack.last[0]);
+      _operStack.removeLast();
+    }
+  }
+
+  @override
+  Matrix parse() {
+    tokenize();
+    matrixParse();
+    shuntingyard();
+    List<Matrix> result = [];
+    Matrix left;
+    Matrix right;
+    for (var i = 0; i < _outputStack.length; i++) {
+      switch (_outputStack[i]) {
+        case '+':
+          right = result.removeLast();
+          left = result.removeLast();
+          result.add(left + right);
+          break;
+        case '-':
+          right = result.removeLast();
+          left = result.removeLast();
+          result.add(left - right);
+          break;
+        case '\\times':
+          right = result.removeLast();
+          left = result.removeLast();
+          result.add(left * right);
+          break;
+        case '\\div':
+          right = result.removeLast();
+          left = result.removeLast();
+          result.add(left * right.inverse());
+          break;
+        default:
+          result.add(_outputStack[i]);
+      }
+    }
+    if (result.length == 1) {
+      return result[0];
+    } else {
+      throw 'Parse Error';
+    }
+  }
+}
 
