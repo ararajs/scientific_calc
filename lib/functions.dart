@@ -8,6 +8,9 @@ import 'main.dart';
 import "math_server.dart";
 import "package:provider/provider.dart";
 import "mathtest.dart" as lp;
+import "package:flutter_app/solver.dart";
+import "package:linalg/linalg.dart";
+import "package:flutter_app/mathtest.dart";
 
 
 class Button extends StatelessWidget{
@@ -23,6 +26,7 @@ class Button extends StatelessWidget{
   final ValueChanged<String> Update_Input;
   Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
 
+  List Keys = ["Right", "Left", "Up", "Down"];
 
   Widget build(BuildContext context){
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
@@ -33,7 +37,12 @@ class Button extends StatelessWidget{
       }
       else{
         for (var i=0; i < input.length; i++){
-          mathBoxController.addExpression(input[i]);
+          if (Keys.contains(input[i])) {
+            mathBoxController.addKey(input[i]);
+          }
+          else{
+            mathBoxController.addExpression(input[i]);
+          }
         }
       }
     }
@@ -139,7 +148,7 @@ class delAllButton extends StatelessWidget{
 
 class MathModel with ChangeNotifier {
   String _expression = '';
-  String _result = '';
+  String _result = "0";
   bool _isClearable = false;
   int _precision;
   bool _isRadMode;
@@ -169,29 +178,114 @@ class MathModel with ChangeNotifier {
     print('exp: ' + _expression.toString());
     me.Parser solver = me.Parser();
     if (_expression.isEmpty) {
-      _result = '';
+      _result = "";
     } else {
       try {
-        lp.LaTexParser LParser = lp.LaTexParser(_expression, isRadMode: _isRadMode);
-        me.Expression mathexp = LParser.parse();
-        me.ContextModel cm = me.ContextModel();
-        String ans = mathexp.evaluate(me.EvaluationType.REAL, cm).toString();
-        while ((ans.contains('.') && ans.endsWith('0')) ||
-            ans.endsWith('.')) {
-          ans = ans.substring(0, ans.length - 1);
+        if (_expression.contains(r"\int")){
+          IntConverter solver = IntConverter(_expression, _precision, _isRadMode);
+          _result =  solver.decode();
         }
-        if (ans.contains(".")){
-          var val = double.parse(ans);
-          ans = val.toStringAsFixed(_precision);
+        else if (_expression.contains(r"\frac{d}{dx}")){
+          DiffConverter solver = DiffConverter(_expression, _precision, _isRadMode);
+          _result =  solver.decode();
         }
-        _result = ans;
+        else if (_expression.contains("=")){
+          NumericalAnalysis solver = NumericalAnalysis(_expression, _precision);
+          _result = solver.decode();
+        }
+
+        else {
+          lp.LaTexParser LParser = lp.LaTexParser(_expression, isRadMode: _isRadMode);
+          me.Expression mathexp = LParser.parse();
+          me.ContextModel cm = me.ContextModel();
+          String ans = mathexp.evaluate(me.EvaluationType.REAL, cm).toString();
+          while ((ans.contains('.') && ans.endsWith('0')) ||
+              ans.endsWith('.')) {
+            ans = ans.substring(0, ans.length - 1);
+          }
+          if (ans.contains(".")){
+            var val = double.parse(ans);
+            ans = val.toStringAsFixed(_precision);
+          }
+          _result = ans;
+        }
       }
       catch(e){
-        print("Error: Not sure what bro.");
+        print("Error: Not sure what bro. " + e.toString());
       }
     }
     notifyListeners();
   }
+}
+
+class MatrixModel with ChangeNotifier {
+  List<String> _matrixExpHistory = [];
+  String _matrixExression;
+  Matrix _matrix;
+  int _precision;
+  bool _single = true;
+  bool _square = true;
+
+  bool get single => _single;
+  bool get square => _square;
+
+  void updateExpression(String expression) {
+    _matrixExression = expression;
+    final mp = MatrixParser(_matrixExression, precision: _precision);
+    _matrix = mp.parse();
+    _single = mp.single;
+    _square = mp.square;
+    notifyListeners();
+  }
+
+  void calc() {
+    _matrixExpHistory.add(_matrixExression);
+    updateExpression(matrix2String(_matrix));
+  }
+
+  void norm() {
+    _matrixExpHistory.add(_matrixExression);
+    _matrixExression = _matrix.det().toString();
+    _single = false;
+    _square = false;
+    notifyListeners();
+  }
+
+  void transpose() {
+    _matrixExpHistory.add(_matrixExression);
+    updateExpression(matrix2String(_matrix.transpose()));
+  }
+
+  void invert() {
+    _matrixExpHistory.add(_matrixExression);
+    updateExpression(matrix2String(_matrix.inverse()));
+  }
+
+  String display() {
+    List<int> uniCode = _matrixExression.runes.toList();
+    for (var i = 0; i < uniCode.length; i++) {
+      if (uniCode[i] == 92) {
+        uniCode.insert(i, 92);
+        i++;
+      }
+    }
+    return String.fromCharCodes(uniCode);
+  }
+
+  String matrix2String(Matrix matrix) {
+    List<String> matrixRows = [];
+    for (var i = 0; i < matrix.m; i++) {
+      matrixRows.add(matrix[i].join('&'));
+    }
+    String matrixString = matrixRows.join(r'\\');
+    matrixString = r'\begin{bmatrix}' + matrixString + r'\end{bmatrix}';
+    return matrixString;
+  }
+
+  void changeSetting({int precision}) {
+    this._precision = precision;
+  }
+
 }
 
 class eqButton extends StatelessWidget{
@@ -364,4 +458,7 @@ class DownButton extends StatelessWidget{
     );
   }
 }
+
+
+
 
