@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/quadratic.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'dart:math' as math;
 import 'package:petitparser/petitparser.dart';
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Graph", "Others", "Settings"];
+    List<String> dd1 = ["Graph", "Matrices","Equations","Settings"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -141,13 +142,19 @@ class _HomePageState extends State<HomePage> {
                       items: _dropDownItem(),
                       onChanged: (value){
                         switch(value){
+                          case "Equations" :
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TabsPage()),
+                            );
+                            break;
                           case "Graph" :
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BrowserPage()),
                             );
                             break;
-                          case "Others" :
+                          case "Matrices" :
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => ThirdScreen()),
@@ -177,16 +184,16 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.black,
                           fontSize: 24
                       ),
-                    ),
+                    ),//Menu(Graph,Matrices,Settings)
                         FlatButton(
-                      child: Text('Units', textScaleFactor: 2, style: TextStyle(color: Colors.white,),),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ConversionPage() ),
-                        );
+                          child: Text('Units', textScaleFactor: 2, style: TextStyle(color: Colors.white,),),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ConversionPage() ),
+                                );
                       },
-                    ),
+                    ),//Unit Converter
                         Row(
                           children: [
                             LeftButton(Colorlist: SideColor, Size: 30.0),
@@ -205,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             RightButton(Colorlist: SideColor, Size: 30.0),
                           ],
-                        ),
+                        ),//Cursor Arrows
 
 
 
@@ -496,3 +503,5 @@ class SecondRoute extends StatelessWidget {
     );
   }
 }
+
+
