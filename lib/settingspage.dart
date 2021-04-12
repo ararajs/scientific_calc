@@ -79,7 +79,7 @@ class SettingPage extends StatelessWidget {
 class SettingModel with ChangeNotifier {
   num precision = 10;
   bool isRadMode = true;
-
+  int initPage = 0;
   SettingModel() {
     initVal();
   }
@@ -102,7 +102,14 @@ class SettingModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     precision = prefs.getDouble('precision') ?? 10;
     isRadMode = prefs.getBool('isRadMode') ?? true;
+    initPage = prefs.getInt('initPage') ?? 0;
     notifyListeners();
+  }
+
+  Future changeInitpage(int val) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    initPage = val;
+    prefs.setInt('initPage', initPage);
   }
 
 }

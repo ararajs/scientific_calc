@@ -82,7 +82,7 @@ class Server {    //localhost:8080/assets/index.html
 
 class LatexScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _LatexScreenState();
+  _LatexScreenState createState() => _LatexScreenState();
 
 }
 
@@ -91,6 +91,8 @@ class _LatexScreenState extends State<LatexScreen> {
   Completer<WebViewController>();
   final mathBoxController = MathBoxController();
   final mathModelController = MathModel();
+  final MatrixModelController = MatrixModel();
+
 
   @override
   void initState(){
@@ -107,6 +109,8 @@ class _LatexScreenState extends State<LatexScreen> {
     final mathBoxController =
     Provider.of<MathBoxController>(context, listen: false);
     final mathModelController = Provider.of<MathModel>(context, listen: false);
+    final mode = Provider.of<CalculationMode>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
     return Container(
         child: WebView(
             initialUrl: "http://localhost:8080/assets/html/homepage.html",
@@ -119,8 +123,16 @@ class _LatexScreenState extends State<LatexScreen> {
               JavascriptChannel(
                   name: "latexString",
                   onMessageReceived: (JavascriptMessage message){
-                    mathModelController.updateExpression(message.message);
-                    mathModelController.calcNumber();
+                    if (mode.value == Mode.Basic) {
+                      mathModelController.updateExpression(message.message);
+                      mathModelController.calcNumber();
+                    }
+                    else if (mode.value == Mode.Matrix) {
+                      matrixModel.updateExpression(message.message);
+                      matrixModel.calc();
+                      mathBoxController.deleteAllExpression();
+                      mathBoxController.addString(matrixModel.display());
+                    }
                   }
               ),
               JavascriptChannel(

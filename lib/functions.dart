@@ -26,7 +26,8 @@ class Button extends StatelessWidget{
   final ValueChanged<String> Update_Input;
   Button({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
 
-  List Keys = ["Right", "Left", "Up", "Down"];
+  List Keys = ["Right", "Left", "Up", "Down", "Shift-Spacebar", "Shift-Enter", "Backspace"];
+  List Op =  ["+", "-", r"\div", "\\\\times" ,"/"];
 
   Widget build(BuildContext context){
     final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
@@ -41,7 +42,13 @@ class Button extends StatelessWidget{
             mathBoxController.addKey(input[i]);
           }
           else{
-            mathBoxController.addExpression(input[i]);
+            if (Op.contains(input[i])){
+              mathBoxController.addExpression(input[i], isOperator: true);
+            }
+            else{
+              mathBoxController.addExpression(input[i]);
+            }
+
           }
         }
       }
@@ -459,6 +466,21 @@ class DownButton extends StatelessWidget{
   }
 }
 
+class CalculationMode extends ValueNotifier<Mode> {
+  CalculationMode(Mode value) : super(value);
+
+  void changeMode(Mode newMode) {
+    if (newMode != value) {
+      value = newMode;
+    }
+  }
+}
+
+enum Mode {
+  Basic,
+  Matrix,
+  Complex,
+}
 
 
 
