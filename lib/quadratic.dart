@@ -13,7 +13,7 @@ class TabsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tabs App',
-      theme: ThemeData(primarySwatch: Colors.amber),
+      theme: ThemeData(backgroundColor: Color.fromRGBO(129, 90, 160, 0.8)),
       home: HomePage(),
     );
   }
@@ -42,6 +42,7 @@ class HomePage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromRGBO(129, 90, 160, 0.8),
           title: Text('Quadratic Equation'),
           bottom: TabBar(
             tabs: <Widget>[

@@ -87,13 +87,7 @@ class _FifthScreenState extends State<FifthScreen> {
   @override
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Basic Quadratic Solver',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-        ),
-      ),
-      body: Container(
+    return Container(
         child: SingleChildScrollView(
           key: formKey,
           padding: EdgeInsets.all(30.0),
@@ -261,7 +255,6 @@ class _FifthScreenState extends State<FifthScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }
