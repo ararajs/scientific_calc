@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
 
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> dd1 = ["Graph", "Matrices", "Settings","Equations"];
+    List<String> dd1 = ["Graph", "Matrices", "Equations","Settings"];
     return dd1.map(
             (value) =>
             DropdownMenuItem(
@@ -174,17 +174,20 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               child: LatexScreen(),
               height: displayHeight(context),
-            )
+            )//InputScreen
           ),
-          Container(
-              alignment: Alignment.bottomRight,
-                height: displayHeight(context)*0.08,
-                child: Consumer<MathModel>(
-                    builder: (__, model, ___) {
-                      output = model.result;
-                      return(Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
-                    }
-            )
+          Expanded(
+            flex: 1,
+            child: Container(
+                alignment: Alignment.bottomRight,
+                  height: displayHeight(context)*0.08,
+                  child: Consumer<MathModel>(
+                      builder: (__, model, ___) {
+                        output = model.result;
+                        return(Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
+                      }
+              )
+            ),//OutputScreen
           ),
           Expanded(
             flex: 2,
@@ -195,15 +198,15 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget> [
 
                         DropdownButton(
-                      value: _selectedText,
-                      items: _dropDownItem(),
-                      onChanged: (value){
-                        switch(value){
+                          value: _selectedText,
+                          items: _dropDownItem(),
+                          onChanged: (value){
+                          switch(value){
                           case "Equations":
                             Navigator.push(
                               context,
@@ -230,21 +233,27 @@ class _HomePageState extends State<HomePage> {
                             break;
                         }
                       },
-                        hint: Text('Menu',style: TextStyle(color: Colors.white,),textAlign: TextAlign.end,),
+                          hint: Padding(
+                            padding: const EdgeInsets.fromLTRB(30,0,0,0),
+                            child: Text('Menu',style: TextStyle(color: Colors.white,fontSize: 30),textAlign: TextAlign.right),
+                          ),
                           dropdownColor: Colors.white,
-                        icon: Icon(Icons.arrow_drop_down,color: Colors.white,),
+                          icon: Padding(
+                            padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                            child: Icon(Icons.arrow_drop_down,color: Colors.white,),
+                          ),
                           iconSize: 36,
 
-                        underline: SizedBox(),
+                          underline: SizedBox(),
                           style: TextStyle(
                           color: Colors.black,
                           fontSize: 24
                       ),
                     ),
                         FlatButton(
-                      child: Text('Units', textScaleFactor: 1.8, style: TextStyle(color: Colors.white,),),
-                      onPressed: () {
-                        Navigator.push(
+                          child: Text('Units', textScaleFactor: 2, style: TextStyle(color: Colors.white,),),
+                          onPressed: () {
+                          Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ConversionPage() ),
                         );
@@ -276,8 +285,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-              ),),
-
+              ),),//Additional Functions
           Expanded(
             flex: 5,
             child: Container(
@@ -409,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ]
                 )
-            ),
+            ),//Scientific Functions
           ),
           Expanded(
             flex: 5,
@@ -465,7 +473,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ),
+            ),//Basic Functions
           ),
         ],
       ),
