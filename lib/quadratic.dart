@@ -8,18 +8,8 @@ import './Utilities/FifthScreen.dart';
 
 void main() => runApp(TabsPage());
 
-class TabsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tabs App',
-      theme: ThemeData(backgroundColor: Color.fromRGBO(129, 90, 160, 0.8)),
-      home: HomePage(),
-    );
-  }
-}
 
-class HomePage extends StatelessWidget {
+class TabsPage extends StatelessWidget {
 
   List<Widget> containers = [
     Container(

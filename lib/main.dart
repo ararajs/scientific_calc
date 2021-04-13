@@ -276,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"e", Input:r"\e",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"𝝅", Input:r"\pi",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"ln", InputList:[r"\ln","("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,10 +302,9 @@ class _HomePageState extends State<HomePage> {
 
 
                             ],
-                          ),
+                          ),//Buttons
                         ],
-                        //Jun Hao - trigo
-                      ),
+                      ),//1st Page
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children:[
@@ -319,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"d/dx", InputList:["d", "/", "dx","Right" ,"(", ")", r"\\vert", "_", "x", "="],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"∫x", Input: "\\int",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"csc⁻¹", InputList:[r"\arccsc", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"sec⁻¹", InputList:[r"\arcsec", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,10 +342,9 @@ class _HomePageState extends State<HomePage> {
 
 
                             ],
-                          ),
+                          ),//Buttons
                         ],
-                        // Su Quin - log functions
-                      ),
+                      ),//2nd Page
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children:[
@@ -360,7 +358,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"Del", InputList:["Backspace"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -370,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
+                          ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,9 +379,8 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
-                          ),
-                        ],
-                        // Aravind - logical operators
+                          ),//Buttons
+                        ],//3rd Page
                       )
                     ]
                 )
@@ -466,6 +463,7 @@ class _BrowserPageState extends State<BrowserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            backgroundColor: Color.fromRGBO(129, 90, 160, 1),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text("Graph")),
