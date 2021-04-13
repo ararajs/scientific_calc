@@ -79,7 +79,7 @@ class _ConversionPageState extends State<ConversionPage> {
     return Scaffold(
     appBar: AppBar(
        title: Text('Unit Converter'),
-      backgroundColor: Color.fromRGBO(129, 90, 160, 0.8),
+      backgroundColor: Color.fromRGBO(129, 90, 160, 1),
     ),
        body:  Stack(
         children: <Widget>[

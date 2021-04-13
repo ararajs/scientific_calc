@@ -32,7 +32,7 @@ class TabsPage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(129, 90, 160, 0.8),
+          backgroundColor: Color.fromRGBO(129, 90, 160, 1),
           title: Text('Quadratic Equation'),
           bottom: TabBar(
             tabs: <Widget>[

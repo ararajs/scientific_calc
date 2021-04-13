@@ -13,6 +13,7 @@ class SettingPage extends StatelessWidget {
     final mathModel = Provider.of<MathModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(129, 90, 160, 1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back,),
           onPressed: () {
