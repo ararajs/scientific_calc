@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"xⁿ", Input:"^",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"√", Input:"\\sqrt",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"e", Input:r"\e",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"ℼ", Input:r"\pi",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"𝝅", Input:r"\pi",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
@@ -316,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"x/y", Input:"/",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"eⁿ", Input:["e", "^"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"ⁿ√", InputList:["\\\\nthroot"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"d/dx", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"d/dx", InputList:["d", "/", "dx","Right" ,"(", ")", r"\\vert", "_", "x", "="],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"∫x", Input: "\\int",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
@@ -336,10 +336,10 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
                               Button(symb:"cot⁻¹", InputList:[r"\arccot", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"x", Input:"x",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"diff", InputList:["d", "/", "dx","Right" ,"(", ")", r"\\vert", "_", "x", "="],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"=_t", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"(☐)",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"SOLVE", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.055,),
+                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
 
                             ],
@@ -354,11 +354,11 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"matrix_trial", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"AddC", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"AddR", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"Del", InputList:["Backspace"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
@@ -466,7 +466,6 @@ class _BrowserPageState extends State<BrowserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(129, 90, 160, 0.8),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text("Graph")),
@@ -526,7 +525,6 @@ class SecondRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(129, 90, 160, 1),
 
       ),
       body: Center(
