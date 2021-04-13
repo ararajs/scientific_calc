@@ -79,6 +79,7 @@ class _ConversionPageState extends State<ConversionPage> {
     return Scaffold(
     appBar: AppBar(
        title: Text('Unit Converter'),
+      backgroundColor: Color.fromRGBO(129, 90, 160, 1),
     ),
        body:  Stack(
         children: <Widget>[
@@ -136,7 +137,7 @@ class _ConversionPageState extends State<ConversionPage> {
                                 child: Text(selectedInputUnit,
                                     style: TextStyle(
                                         fontSize: 20.0,
-                                        color: Colors.white54))),
+                                        color: Colors.white))),
                             onTap: () {
                               showDialog<String>(
                                 context: context,
@@ -204,7 +205,7 @@ class _ConversionPageState extends State<ConversionPage> {
                           child: new Center(
                               child: Text(selectedOutputUnit,
                                   style: TextStyle(
-                                      fontSize: 20.0, color: Colors.white54))),
+                                      fontSize: 20.0, color: Colors.white))),
                           onTap: () {
                             showDialog<String>(
                               context: context,

@@ -8,18 +8,8 @@ import './Utilities/FifthScreen.dart';
 
 void main() => runApp(TabsPage());
 
-class TabsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tabs App',
-      theme: ThemeData(primarySwatch: Colors.amber),
-      home: HomePage(),
-    );
-  }
-}
 
-class HomePage extends StatelessWidget {
+class TabsPage extends StatelessWidget {
 
   List<Widget> containers = [
     Container(
@@ -42,6 +32,7 @@ class HomePage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromRGBO(129, 90, 160, 1),
           title: Text('Quadratic Equation'),
           bottom: TabBar(
             tabs: <Widget>[

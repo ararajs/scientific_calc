@@ -23,7 +23,7 @@ class _ConversionRadialMenuState extends State<ConversionRadialMenu>
     isExpanded = false;
     selectedConversionType = "Length";
     controller = new AnimationController(
-        duration: new Duration(milliseconds: 400));
+        duration: new Duration(milliseconds: 400), vsync: this);
     circularExpand = new Tween<double>(begin: 1, end: 2).animate(
         CurvedAnimation(
             parent: controller, curve: Curves.easeInOutCirc));

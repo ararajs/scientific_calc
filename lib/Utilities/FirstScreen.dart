@@ -42,9 +42,8 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
 
   Widget build(BuildContext context) {
-    return Scaffold(
 
-      body: Container(
+      return Container(
         child: SingleChildScrollView(
           key: formKey,
           padding: EdgeInsets.all(30.0),
@@ -251,7 +250,6 @@ class _FirstScreenState extends State<FirstScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }
