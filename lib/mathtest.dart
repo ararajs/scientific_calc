@@ -46,8 +46,7 @@ class LaTexParser extends Parser {
 
     final pi = string('\\pi').trim().map((a)=>math.pi);
     final e = char('e').trim().map((a)=>math.e);
-    final i = char('i').map((a)=>Complex());
-    final variable = pattern('xy');
+    final variable = pattern('xyi');
 
     final basic = (number | pi | e | variable).map((v)=>[v, 'b']);
 
@@ -255,6 +254,7 @@ class LaTexParser extends Parser {
           break;
         case '\\times':
           right = result.removeLast();
+
           left = result.removeLast();
           result.add(left * right);
           break;
@@ -405,6 +405,7 @@ class LaTexParser extends Parser {
           }
       }
     }
+   print(result);
    if (result.length == 1) {
         return result[0];
     }
@@ -412,6 +413,7 @@ class LaTexParser extends Parser {
       throw 'Parse Error';
           }
       }
+
 
 }
 

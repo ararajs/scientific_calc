@@ -1,4 +1,4 @@
-import 'package:extended_math/extended_math.dart';
+import 'package:extended_math/extended_math.dart' as ex;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
@@ -300,6 +300,281 @@ class NumericalAnalysis {
 
     }
   }
+}
+
+class ComplexConv {
+  final String input;
+  final Precision;
+  ComplexConv(this.input, this.Precision);
+
+  String decode(){
+    lp.LaTexParser Parser = lp.LaTexParser(input);
+    me.Expression parsedExp = Parser.parse();
+    String parsedString = parsedExp.toString();
+    RegExp regstr = RegExp(r"\(.+?i\)|\d*\.+?\d+[i]*|/|\+|\*|-");
+    Iterable<RegExpMatch> matches = regstr.allMatches(parsedString);
+    List match = matches.toList();
+    List vals = [];
+    var y = parsedString;
+    for (int i = 0; i<matches.length; i++){
+      var x = parsedString.substring(match[i].start, match[i].end);
+      if (x == "+" || x == "-" || x== "*" || x=="/") {
+        vals.add(x);
+      }
+      else{
+        x = x.replaceAll("(", "");
+        x = x.replaceAll(")", "");
+        ex.Complex cx = str2complex(x);
+        vals.add(cx);
+      }
+    }
+    print(vals);
+    List trial = ShuntingYard(vals);
+    ex.Complex output = CompParser(trial);
+
+    String true_str = "$output";
+    print(true_str);
+    String output_str = Str2Deci(true_str);
+
+    return output_str;
+  }
+
+  ex.Complex str2complex (String input){
+    input = input.replaceAll(" ", "");
+    input = input.replaceAll("*", "");
+    print(input);
+    RegExp opStr = RegExp(r"\+|-");
+    Iterable<RegExpMatch> op_matches = opStr.allMatches(input);
+    List op_match = op_matches.toList();
+    List op = [];
+    RegExp valStr = RegExp(r"[^+-]+");
+    Iterable<RegExpMatch> val_matches = valStr.allMatches(input);
+    List val_match = val_matches.toList();
+    List val = [];
+    for (int i = 0; i < val_matches.length; i++){
+     val.add(input.substring(val_match[i].start, val_match[i].end));
+    }
+    for (int i = 0; i < op_matches.length; i++){
+      op.add(input.substring(op_match[i].start, op_match[i].end));
+    }
+    print(val);
+    print(op);
+    if (op.length == 2){
+      String re = "-" + val[1];
+      if (val[2] == "i"){
+        val[2] = "1i";
+      }
+      String im = op[1] + val[2].replaceAll("i", "");
+      double Re = double.parse(re);
+      double Im = double.parse(im);
+      ex.Complex comp = ex.Complex(re: Re, im: Im);
+      return comp;
+      }
+    else if (op.length == 1){
+      if (input.contains("i")) {
+        if (val.length == 2){
+          if (val[1] == "i"){
+            val[1] = "1i";
+          }
+          String re =  val[0];
+          String im = op[0] + val[1].replaceAll("i", "");
+          double Re = double.parse(re);
+          double Im = double.parse(im);
+          ex.Complex comp = ex.Complex(re: Re, im: Im);
+          return comp;
+        }
+        else {
+          if (val[0] == "i"){
+            val[0] = "1i";
+          }
+          String im = "-" + val[0].replaceAll("i", "");
+          double Im = double.parse(im);
+          ex.Complex comp = ex.Complex(re:0.0, im: Im);
+          return comp;
+        }
+      }
+      else {
+        String re = "-" + val[0];
+        double Re = double.parse(re);
+        ex.Complex comp = ex.Complex(re: Re, im: 0.0);
+        return comp;
+      }
+    }
+    else {
+      if (input.contains("i")) {
+        if (val[0] == "i"){
+          val[0] = "1i";
+        }
+        String im = val[0].replaceAll("i", "");
+        double Im = double.parse(im);
+        ex.Complex comp = ex.Complex(re: 0.0, im: Im);
+        return comp;
+      }
+      else{
+        String re = val[0];
+        double Re = double.parse(re);
+        ex.Complex comp = ex.Complex(re: Re, im: 0.0);
+        return comp;
+      }
+    }
+
+
+
+}
+
+  List ShuntingYard(List input){
+    List OperStack = [];
+    List FinalStack = [];
+    for (int i = 0; i < input.length; i++){
+        if (input[i] == "+" || input[i] == "-" || input[i]== "*" || input[i]=="/") {
+          if (OperStack.isEmpty){
+            OperStack.add(input[i]);
+          }
+          else{
+            if (getPrio(input[i]) > getPrio(OperStack.last)){
+              OperStack.add(input[i]);
+            }
+            else{
+              while(OperStack.isNotEmpty){
+                FinalStack.add(OperStack.removeLast());
+              }
+              OperStack.add(input[i]);
+            }
+          }
+        }
+        else {
+          FinalStack.add(input[i]);
+        }
+
+
+    }
+    while(OperStack.isNotEmpty){
+      FinalStack.add(OperStack.removeLast());
+    }
+    return FinalStack;
+
+  }
+
+  ex.Complex CompParser(List input){
+    List result = [];
+    for (int i =0; i<input.length; i++){
+      switch (input[i]){
+        case "*":
+          var last = result.removeLast();
+          var first = result.removeLast();
+          result.add(last*first);
+          break;
+        case "/":
+          var den = result.removeLast();
+          var num = result.removeLast();
+          result.add(num/den);
+          break;
+        case "+":
+          var second = result.removeLast();
+          var first = result.removeLast();
+          result.add(first+second);
+          break;
+        case "-":
+          var second = result.removeLast();
+          var first = result.removeLast();
+          result.add(first-second);
+          break;
+        default:
+          result.add(input[i]);
+      }
+    }
+    return result[0];
+
+  }
+
+
+  int getPrio (String inp){
+    switch(inp){
+      case "+":
+        return 1;
+        break;
+      case "-":
+        return 1;
+        break;
+      case "*":
+        return 2;
+        break;
+      case "/":
+        return 2;
+        break;
+      default:
+        return 0;
+        break;
+    }
+  }
+
+  String Str2Deci(String input){
+    input = input.replaceAll(" ", "");
+    RegExp opStr = RegExp(r"\+|-");
+    Iterable<RegExpMatch> op_matches = opStr.allMatches(input);
+    List op_match = op_matches.toList();
+    RegExp valStr = RegExp(r"[^+-]+");
+    Iterable<RegExpMatch> val_matches = valStr.allMatches(input);
+    List val_match = val_matches.toList();
+    List val = [];
+    List op = [];
+    for (int i = 0; i < val_matches.length; i++){
+      String x = input.substring(val_match[i].start, val_match[i].end);
+      if (x=="i"){
+        val.add("1i");
+      }
+      else{
+        val.add(x);
+      }
+    }
+    for (int i = 0; i < op_matches.length; i++){
+      op.add(input.substring(op_match[i].start, op_match[i].end));
+    }
+    if (op.length == 3){
+      String re = val[0];
+      String im = val[1].replaceAll("i", "");
+      double Re = double.parse(re);
+      double Im = double.parse(im);
+      return "-" + Re.toStringAsFixed(Precision) + " - " + Im.toStringAsFixed(Precision) + "i";
+    }
+    else if (op.length == 2){
+      if (op[0] == "-"){
+        String re = val[0];
+        String im = val[1].replaceAll("i", "");
+        double Re = double.parse(re);
+        double Im = double.parse(im);
+        return "-" + Re.toStringAsFixed(Precision) + " + " + Im.toStringAsFixed(Precision) + "i";
+      }
+      else{
+        String re = val[0];
+        String im = val[1].replaceAll("i", "");
+        double Re = double.parse(re);
+        double Im = double.parse(im);
+        return Re.toStringAsFixed(Precision) + " - " + Im.toStringAsFixed(Precision) + "i";
+      }
+    }
+    else if (op.length == 1){
+      if (val.length == 2){
+        String re = val[0];
+        String im = val[1].replaceAll("i", "");
+        double Re = double.parse(re);
+        double Im = double.parse(im);
+        return Re.toStringAsFixed(Precision) + " + " + Im.toStringAsFixed(Precision) + "i";
+      }
+      else{
+        String re = val[0];
+        double Re = double.parse(re);
+        return "-" + Re.toStringAsFixed(Precision);
+      }
+    }
+    else{
+      String re = val[0];
+      double Re = double.parse(re);
+      return Re.toStringAsFixed(Precision);
+    }
+
+  }
+
 }
 
 

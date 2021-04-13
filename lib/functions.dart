@@ -200,7 +200,10 @@ class MathModel with ChangeNotifier {
           NumericalAnalysis solver = NumericalAnalysis(_expression, _precision);
           _result = solver.decode();
         }
-
+        else if (_expression.contains("i")){
+         ComplexConv solver = ComplexConv(_expression, _precision);
+         _result = solver.decode();
+        }
         else {
           lp.LaTexParser LParser = lp.LaTexParser(_expression, isRadMode: _isRadMode);
           me.Expression mathexp = LParser.parse();

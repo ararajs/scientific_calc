@@ -5,7 +5,7 @@ import 'package:flutter_app/quadratic.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'dart:math' as math;
 import 'package:petitparser/petitparser.dart';
-import 'package:math_expressions/math_expressions.dart';
+import 'package:math_expressions/math_expressions.dart' as me;
 import 'functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/services.dart';
@@ -365,7 +365,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"i", Input:r"\i",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
@@ -519,6 +519,8 @@ class ThirdScreen extends StatelessWidget {
     );
   }
 }
+
+//(.+?\) for complex
 
 class SecondRoute extends StatelessWidget {
   @override
