@@ -22,6 +22,7 @@ import 'package:complex/complex.dart' as complex1;
 import 'package:linalg/linalg.dart';
 
 
+
 void main() {
   final Server _server = Server();
   _server.start();
@@ -46,7 +47,31 @@ class MyApp extends StatelessWidget {
               precision: settings.precision.toInt(),
               isRadMode: settings.isRadMode
             ),
-        )],
+        ),
+        ChangeNotifierProxyProvider<SettingModel, MatrixModel>(
+          create: (context) => MatrixModel(),
+          update: (context, settings, model) => model
+            ..changeSetting(
+              precision: settings.precision.toInt(),
+            ),
+        ),
+        ListenableProxyProvider<SettingModel, CalculationMode>(
+          create: (context) => CalculationMode(Mode.Basic),
+          update: (context, settings, model) {
+              switch (settings.initPage) {
+                case 0:
+                  if (model.value == Mode.Matrix) {
+                    model.value = Mode.Basic;
+                  }
+                  break;
+                case 1:
+                  model.changeMode(Mode.Matrix);
+                  break;
+              }
+            return model;
+          },
+          dispose: (context, value) => value.dispose(),
+        ),],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
@@ -92,9 +117,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+    final mode = Provider.of<CalculationMode>(context, listen: false);
     final mathBoxController =
     Provider.of<MathBoxController>(context, listen: false);
     final mathModel = Provider.of<MathModel>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+    final setting = Provider.of<SettingModel>(context, listen: false);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(1.5),
@@ -116,12 +144,13 @@ class _HomePageState extends State<HomePage> {
             child: Container(
                 alignment: Alignment.bottomRight,
                   height: displayHeight(context)*0.08,
-                  child: Consumer<MathModel>(
+                  child:
+                      Consumer<MathModel>(
                       builder: (__, model, ___) {
                         output = model.result;
                         return(Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
                       }
-              )
+                      )
             ),
           ),//OutputScreen
           Expanded(
@@ -155,11 +184,17 @@ class _HomePageState extends State<HomePage> {
                             );
                             break;
                           case "Matrices" :
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ThirdScreen()),
-                            );
-                            break;
+                                  if (mode.value == Mode.Matrix) {
+                                    mode.value = Mode.Basic;
+                                    mathBoxController.deleteAllExpression();
+                                  }
+                                  else {
+                                    mode.value = Mode.Matrix;
+                                    mathBoxController.deleteAllExpression();
+                                    mathBoxController.addExpression(
+                                        '\\\\bmatrix');
+                                  }
+                                  break;
                           case "Settings" :
                             Navigator.push(
                               context,
@@ -320,10 +355,10 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
                               Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"matrix_trial", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"AddC", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"AddR", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"Del", InputList:["Backspace"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                             ],
                           ),
                           Row(
