@@ -211,7 +211,7 @@ class MathModel with ChangeNotifier {
           _result = solver.decode();
         }
         else if (c_i > c_times + c_div + c_rb + c_asin + c_sin + c_pi){
-         ComplexConv solver = ComplexConv(_expression, _precision);
+         ComplexConv solver = ComplexConv(_expression, _precision, _isRadMode);
          _result = solver.decode();
         }
         else {

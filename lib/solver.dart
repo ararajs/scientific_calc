@@ -305,7 +305,8 @@ class NumericalAnalysis {
 class ComplexConv {
   final String input;
   final Precision;
-  ComplexConv(this.input, this.Precision);
+  final isRadMode;
+  ComplexConv(this.input, this.Precision, this.isRadMode);
 
   String decode(){
     lp.LaTexParser Parser = lp.LaTexParser(input);
@@ -342,6 +343,10 @@ class ComplexConv {
   ex.Complex str2complex (String input){
     input = input.replaceAll(" ", "");
     input = input.replaceAll("*", "");
+    input = input.replaceAll(",", "");
+    var c_i = "i".allMatches(input).length;
+    var c_sin = "sin".allMatches(input).length;
+    var c_asin = "arcsin".allMatches(input).length;
     print(input);
     RegExp opStr = RegExp(r"\+|-");
     Iterable<RegExpMatch> op_matches = opStr.allMatches(input);
@@ -354,19 +359,46 @@ class ComplexConv {
     for (int i = 0; i < val_matches.length; i++){
      val.add(input.substring(val_match[i].start, val_match[i].end));
     }
+
+    List Rectifier (List val) {
+      for (int i = 0; i < val.length; i++) {
+        if (val[i].contains("^")) {
+          List temp = val[i].split("^");
+          for (int j = 0; j < temp.length; j++) {
+            temp[j] = "(" + temp[j] + ")";
+          }
+          String output = temp.join("^");
+          val[i] = output;
+        }
+        else if (val[i].contains("log")) {
+          String temp = val[i].replaceAll("log", "");
+          val[i] = "log(" + temp + ")";
+        }
+      }
+      return val;
+    }
     for (int i = 0; i < op_matches.length; i++){
       op.add(input.substring(op_match[i].start, op_match[i].end));
     }
-    print(val);
-    print(op);
     if (op.length == 2){
-      String re = "-" + val[1];
+      String re =  val[1];
       if (val[2] == "i"){
         val[2] = "1i";
       }
-      String im = op[1] + val[2].replaceAll("i", "");
-      double Re = double.parse(re);
-      double Im = double.parse(im);
+      if (op[0] == "+"){
+        op[0] = "";
+      }
+      String im = val[2].replaceAll("i", "");
+      List ConvList = [re, im];
+      ConvList = Rectifier(ConvList);
+      String re1 = "-" + ConvList[0];
+      String im1 = op[1] +  ConvList[1];
+      me.Parser MeSolver = me.Parser();
+      me.ContextModel cm = me.ContextModel();
+      me.Expression ReExp = MeSolver.parse(re1);
+      me.Expression ImExp = MeSolver.parse(im1);
+      double Re = ReExp.evaluate(me.EvaluationType.REAL, cm);
+      double Im = ImExp.evaluate(me.EvaluationType.REAL, cm);
       ex.Complex comp = ex.Complex(re: Re, im: Im);
       return comp;
       }
@@ -376,10 +408,22 @@ class ComplexConv {
           if (val[1] == "i"){
             val[1] = "1i";
           }
+          if (op[0] == "+"){
+            op[0] = "";
+          }
           String re =  val[0];
-          String im = op[0] + val[1].replaceAll("i", "");
-          double Re = double.parse(re);
-          double Im = double.parse(im);
+          String im = val[1].replaceAll("i", "");
+          List ConvList = [re, im];
+          ConvList = Rectifier(ConvList);
+          print(ConvList);
+          String re1 = ConvList[0];
+          String im1 = op[0] + ConvList[1];
+          me.Parser MeSolver = me.Parser();
+          me.ContextModel cm = me.ContextModel();
+          me.Expression ReExp = MeSolver.parse(re1);
+          me.Expression ImExp = MeSolver.parse(im1);
+          double Re = ReExp.evaluate(me.EvaluationType.REAL, cm);
+          double Im = ImExp.evaluate(me.EvaluationType.REAL, cm);
           ex.Complex comp = ex.Complex(re: Re, im: Im);
           return comp;
         }
@@ -387,15 +431,28 @@ class ComplexConv {
           if (val[0] == "i"){
             val[0] = "1i";
           }
-          String im = "-" + val[0].replaceAll("i", "");
-          double Im = double.parse(im);
+          String im =  val[0].replaceAll("i", "");
+          List ConvList = [im];
+          ConvList = Rectifier(ConvList);
+          String im1 = "-" + ConvList[0];
+          me.Parser MeSolver = me.Parser();
+          me.ContextModel cm = me.ContextModel();
+          me.Expression ImExp = MeSolver.parse(im1);
+          double Im = ImExp.evaluate(me.EvaluationType.REAL, cm);
           ex.Complex comp = ex.Complex(re:0.0, im: Im);
           return comp;
         }
       }
       else {
-        String re = "-" + val[0];
-        double Re = double.parse(re);
+        String re =  val[0];
+        List ConvList = [re];
+        ConvList = Rectifier(ConvList);
+        String re1 = "-" +ConvList[0];
+        me.Parser MeSolver = me.Parser();
+        me.ContextModel cm = me.ContextModel();
+        me.Expression ReExp = MeSolver.parse(re1);
+
+        double Re = ReExp.evaluate(me.EvaluationType.REAL, cm);
         ex.Complex comp = ex.Complex(re: Re, im: 0.0);
         return comp;
       }
@@ -406,13 +463,25 @@ class ComplexConv {
           val[0] = "1i";
         }
         String im = val[0].replaceAll("i", "");
-        double Im = double.parse(im);
+        List ConvList = [im];
+        ConvList = Rectifier(ConvList);
+        String im1 = ConvList[0];
+        me.Parser MeSolver = me.Parser();
+        me.ContextModel cm = me.ContextModel();
+        me.Expression ImExp = MeSolver.parse(im1);
+        double Im = ImExp.evaluate(me.EvaluationType.REAL, cm);
         ex.Complex comp = ex.Complex(re: 0.0, im: Im);
         return comp;
       }
       else{
         String re = val[0];
-        double Re = double.parse(re);
+        List ConvList = [re];
+        ConvList = Rectifier(ConvList);
+        String re1 = ConvList[0];
+        me.Parser MeSolver = me.Parser();
+        me.ContextModel cm = me.ContextModel();
+        me.Expression ReExp = MeSolver.parse(re1);
+        double Re = ReExp.evaluate(me.EvaluationType.REAL, cm);
         ex.Complex comp = ex.Complex(re: Re, im: 0.0);
         return comp;
       }
