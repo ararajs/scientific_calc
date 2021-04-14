@@ -187,12 +187,14 @@ class _HomePageState extends State<HomePage> {
                                   if (mode.value == Mode.Matrix) {
                                     mode.value = Mode.Basic;
                                     mathBoxController.deleteAllExpression();
+                                    mathModel.setResult();
                                   }
                                   else {
                                     mode.value = Mode.Matrix;
                                     mathBoxController.deleteAllExpression();
                                     mathBoxController.addExpression(
                                         '\\\\bmatrix');
+                                    mathModel.setResult();
                                   }
                                   break;
                           case "Settings" :
@@ -313,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
                               Button(symb:"x/y", Input:"/",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"eⁿ", Input:["e", "^"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"eⁿ", InputList:["e", "^"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"ⁿ√", InputList:["\\\\nthroot"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"d/dx", InputList:["d", "/", "dx","Right" ,"(", ")", r"\\vert", "_", "x", "="],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"∫x", Input: "\\int",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
@@ -336,8 +338,8 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget> [
                               Button(symb:"cot⁻¹", InputList:[r"\arccot", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"x", Input:"x",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"SOLVE", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.055,),
+                              Button(symb:"(", Input:"(",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:")", Input:")",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
 
@@ -352,21 +354,24 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"matrix_trial", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"AddC", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"AddR", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"Del", InputList:["Backspace"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"+MAT", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.055,),
+                              Button(symb:"+Col", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"+Row", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.060,),
+                              Button(symb:"x", Input:"x",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
+                              Button(symb:"SOLVE", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.0535,),
+
                             ],
                           ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"i", Input:r"\i",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"i", Input:r"\i",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
+                              Button(symb:"(", Input:"(",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:")", Input:")",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
                             ],
                           ),//Buttons
                           Row(
@@ -488,6 +493,8 @@ class _BrowserPageState extends State<BrowserPage> {
 
   Future<void> _loadHtmlFromAssets(WebViewController controller) async {
     String fileText = await rootBundle.loadString('assets/index.html');
+    String width = "350";
+    String length = '650.3';
     String theURI = Uri.dataFromString(fileText,
         mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
         .toString();

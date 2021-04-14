@@ -54,8 +54,6 @@ class Button extends StatelessWidget{
       }
     }
 
-
-
     return SizedBox(
       width: 65.0,
       height: 35.0,
@@ -181,12 +179,24 @@ class MathModel with ChangeNotifier {
     }
   }
 
+  void setResult(){
+    _result = "";
+    notifyListeners();
+  }
+
   void calcNumber() {
     print('exp: ' + _expression.toString());
     me.Parser solver = me.Parser();
     if (_expression.isEmpty) {
       _result = "";
     } else {
+      var c_i = "i".allMatches(_expression).length;
+      var c_times = "\\times".allMatches(_expression).length;
+      var c_div = "\\div".allMatches(_expression).length;
+      var c_sin = r"\sin".allMatches(_expression).length;
+      var c_asin = r"\arcsin".allMatches(_expression).length;
+      var c_rb = r"\right".allMatches(_expression).length;
+      var c_pi = r"\pi".allMatches(_expression).length;
       try {
         if (_expression.contains(r"\int")){
           IntConverter solver = IntConverter(_expression, _precision, _isRadMode);
@@ -200,7 +210,7 @@ class MathModel with ChangeNotifier {
           NumericalAnalysis solver = NumericalAnalysis(_expression, _precision);
           _result = solver.decode();
         }
-        else if (_expression.contains("i")){
+        else if (c_i > c_times + c_div + c_rb + c_asin + c_sin + c_pi){
          ComplexConv solver = ComplexConv(_expression, _precision);
          _result = solver.decode();
         }
