@@ -295,13 +295,11 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"sin⁻¹", InputList:[r"\arcsin", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"cos⁻¹", InputList:[r"\arccos", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"tan⁻¹", InputList:[r"\arctan", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"x", Input:"x",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
+                              Button(symb:"SOLVE", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.0535,),
+                              Button(symb:"i", Input:r"\i",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
                               Button(symb:"(", Input:"(",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:")", Input:")",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-
-
 
                             ],
                           ),//Buttons
@@ -325,22 +323,24 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
+                              Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"sin⁻¹", InputList:[r"\arcsin", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"cos⁻¹", InputList:[r"\arccos", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"tan⁻¹", InputList:[r"\arctan", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"csc", InputList:[r"\csc", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"sec", InputList:[r"\sec", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"cot", InputList:[r"\cot", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"csc⁻¹", InputList:[r"\arccsc", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"sec⁻¹", InputList:[r"\arcsec", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
                             ],
                           ),//Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
+                              Button(symb:"sec", InputList:[r"\sec", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"cot", InputList:[r"\cot", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"sec⁻¹", InputList:[r"\arcsec", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"cot⁻¹", InputList:[r"\arccot", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"logₓ", InputList:[r"\log","_",],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"(", Input:"(",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:")", Input:")",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"csc⁻¹", InputList:[r"\arccsc", "("],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
 
 
                             ],
@@ -357,8 +357,9 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"+MAT", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.055,),
                               Button(symb:"+Col", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"+Row", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.060,),
-                              Button(symb:"x", Input:"x",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
-                              Button(symb:"SOLVE", Input:"=",  Colorlist: MainColor, Size: displayWidth(context) * 0.0535,),
+                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
 
                             ],
                           ),//Buttons
@@ -366,9 +367,9 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
-                              Button(symb:"i", Input:r"\i",  Colorlist: MainColor, Size: displayWidth(context) * 0.075,),
-                              Button(symb:"(", Input:"(",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:")", Input:")",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+
+                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 

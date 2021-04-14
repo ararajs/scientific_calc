@@ -63,7 +63,7 @@ class Button extends StatelessWidget{
           child: Container(
             child: FlatButton(
               color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
-              onPressed: () {LoopInput(InputList);},
+              onPressed: (){LoopInput(InputList);},
         ),
           )
 
@@ -150,6 +150,7 @@ class delAllButton extends StatelessWidget{
     );
   }
 }
+
 
 class MathModel with ChangeNotifier {
   String _expression = '';
