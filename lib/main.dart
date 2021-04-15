@@ -171,23 +171,23 @@ class _HomePageState extends State<HomePage> {
                       children: <Widget> [
 
                         DropdownButton(
-                      value: _selectedText,
-                      items: _dropDownItem(),
-                      onChanged: (value){
-                        switch(value){
-                          case "Equations" :
-                            Navigator.push(
+                          value: _selectedText,
+                          items: _dropDownItem(),
+                           onChanged: (value){
+                              switch(value){
+                                case "Equations" :
+                                  Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => TabsPage()),
                             );
-                            break;
-                          case "Graph" :
-                            Navigator.push(
+                                break;
+                                case "Graph" :
+                                  Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => BrowserPage()),
                             );
-                            break;
-                          case "Matrices" :
+                                break;
+                                case "Matrices" :
                                   if (mode.value == Mode.Matrix) {
                                     mode.value = Mode.Basic;
                                     mathBoxController.deleteAllExpression();
@@ -201,12 +201,12 @@ class _HomePageState extends State<HomePage> {
                                     mathModel.setResult();
                                   }
                                   break;
-                          case "Settings" :
-                            Navigator.push(
+                                case "Settings" :
+                                    Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => SettingPage()),
                             );
-                            break;
+                                      break;
                         }
                       },
                         hint: Padding(
