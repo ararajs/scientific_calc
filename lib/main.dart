@@ -141,17 +141,21 @@ class _HomePageState extends State<HomePage> {
           ),//InputScreen
           Expanded(
             flex: 1,
-            child: Container(
-                alignment: Alignment.bottomRight,
-                  height: displayHeight(context)*0.08,
-                  child:
-                      Consumer<MathModel>(
-                      builder: (__, model, ___) {
-                        output = model.result;
-                        return(Text("$output", overflow: TextOverflow.ellipsis, textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
-                      }
-                      )
-            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children:[ Container(
+                  padding: EdgeInsets.fromLTRB(6, 0, 0, 0) ,
+                  alignment: Alignment.bottomRight,
+                    height: displayHeight(context)*0.08,
+                    child:
+                        Consumer<MathModel>(
+                        builder: (__, model, ___) {
+                          output = model.result;
+                          return(Text("$output",  textScaleFactor: 3, style: TextStyle(color: Colors.black.withOpacity(1)),));
+                        }
+                        )
+              ),
+            ]),
           ),//OutputScreen
           Expanded(
             flex: 2,
