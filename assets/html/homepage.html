@@ -23,6 +23,7 @@ var isClearable = false;
 
 document.body.onclick = function() {
     isClearable = false;
+    postClearable();
 }
 function addCmd(message, {isOperator = false}) {
     if(isClearable) {
@@ -40,6 +41,7 @@ function addCmd(message, {isOperator = false}) {
 function equal() {
     isClearable = true;
     postLaTex();
+    postClearable();
 }
 
 function addString(message) {
@@ -49,20 +51,24 @@ function addString(message) {
 function delString() {
     mathField.keystroke('Backspace');
     isClearable = false;
+    postClearable();
 }
 
 function delAll() {
     mathField.keystroke('Ctrl-A Backspace');
     isClearable = false;
+    postClearable();
 }
 
 function simulateKey(key) {
     mathField.keystroke(key);
     isClearable = false;
+    postClearable();
 }
 
 function postLaTex() {
     latexString.postMessage(mathField.latex());
+
 }
 
 function postClearable() {

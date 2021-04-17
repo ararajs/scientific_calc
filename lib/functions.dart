@@ -158,6 +158,8 @@ class MathModel with ChangeNotifier {
   bool _isClearable = false;
   int _precision;
   bool _isRadMode;
+  List NumSum= [];
+  List ComplexSum = [];
 
   AnimationController equalAnimation;
 
@@ -188,6 +190,8 @@ class MathModel with ChangeNotifier {
   void calcNumber() {
     print('exp: ' + _expression.toString());
     me.Parser solver = me.Parser();
+
+
     if (_expression.isEmpty) {
       _result = "";
     } else {
@@ -200,22 +204,68 @@ class MathModel with ChangeNotifier {
       var c_pi = r"\pi".allMatches(_expression).length;
       try {
         if (_expression.contains(r"\int")){
+          if (_expression.contains("Ans")){
+            if (NumSum.isEmpty){
+              _expression = _expression.replaceAll("Ans", "");
+            }
+            else{
+              _expression = _expression.replaceAll("Ans", NumSum.last);
+            }
+          }
           IntConverter solver = IntConverter(_expression, _precision, _isRadMode);
           _result =  solver.decode();
+          NumSum.add(_result);
         }
         else if (_expression.contains(r"\frac{d}{dx}")){
+          if (_expression.contains("Ans")){
+            if (NumSum.isEmpty){
+              _expression = _expression.replaceAll("Ans", "");
+            }
+            else{
+              _expression = _expression.replaceAll("Ans", NumSum.last);
+            }
+          }
           DiffConverter solver = DiffConverter(_expression, _precision, _isRadMode);
           _result =  solver.decode();
+          NumSum.add(_result);
         }
         else if (_expression.contains("=")){
+          if (_expression.contains("Ans")){
+            if (NumSum.isEmpty){
+              _expression = _expression.replaceAll("Ans", "");
+            }
+            else{
+              _expression = _expression.replaceAll("Ans", NumSum.last);
+            }
+          }
           NumericalAnalysis solver = NumericalAnalysis(_expression, _precision);
           _result = solver.decode();
+          NumSum.add(_result);
         }
         else if (c_i > c_times + c_div + c_rb + c_asin + c_sin + c_pi){
+          if (_expression.contains("Ans")){
+            if (NumSum.isEmpty){
+              _expression = _expression.replaceAll("Ans", "");
+            }
+            else{
+              _expression = _expression.replaceAll("Ans", ComplexSum.last);
+            }
+          }
+          ComplexSum.add(_expression);
+          print(ComplexSum);
          ComplexConv solver = ComplexConv(_expression, _precision, _isRadMode);
          _result = solver.decode();
+
         }
         else {
+          if (_expression.contains("Ans")){
+            if (NumSum.isEmpty){
+              _expression = _expression.replaceAll("Ans", "");
+            }
+            else{
+              _expression = _expression.replaceAll("Ans", NumSum.last);
+            }
+          }
           lp.LaTexParser LParser = lp.LaTexParser(_expression, isRadMode: _isRadMode);
           me.Expression mathexp = LParser.parse();
           me.ContextModel cm = me.ContextModel();
@@ -229,6 +279,7 @@ class MathModel with ChangeNotifier {
             ans = val.toStringAsFixed(_precision);
           }
           _result = ans;
+          NumSum.add(_result);
         }
       }
       catch(e){
@@ -251,6 +302,14 @@ class MatrixModel with ChangeNotifier {
   bool get square => _square;
 
   void updateExpression(String expression) {
+    if(expression.contains("Ans")) {
+      if (_matrixExpHistory.isEmpty){
+        expression= expression.replaceAll("Ans", "");
+      }
+      else{
+        expression = expression.replaceAll("Ans", _matrixExpHistory.last);
+      }
+    }
     _matrixExression = expression;
     final mp = MatrixParser(_matrixExression, precision: _precision);
     _matrix = mp.parse();
@@ -260,6 +319,14 @@ class MatrixModel with ChangeNotifier {
   }
 
   void calc() {
+    if(_matrixExression.contains("Ans")) {
+        if (_matrixExpHistory.isEmpty){
+          _matrixExression = _matrixExression.replaceAll("Ans", "");
+        }
+        else{
+          _matrixExression = _matrixExression.replaceAll("Ans", _matrixExpHistory.last);
+        }
+    }
     _matrixExpHistory.add(_matrixExression);
     updateExpression(matrix2String(_matrix));
   }

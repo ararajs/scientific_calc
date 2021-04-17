@@ -444,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                       Button(symb:".", Input:".",  Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
                       Button(symb:"0", Input: "0",  Colorlist: MainColor, Size: displayWidth(context) * 0.08,),
                       Button(symb:"10^x", InputList: ["\\\\times","10", "^"],  Colorlist: MainColor, Size: displayWidth(context) * 0.04,),
-                      Button(symb:"ANS", Input: "\\\\text{ANS}",PreviousAnswer: ans , Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
+                      Button(symb:"ANS", Input: "Ans" , Colorlist: SideColor, Size: displayWidth(context) * 0.04,),
                       eqButton(Colorlist: SideColor, Size: displayWidth(context) * 0.08,),
                     ],
                   ),
