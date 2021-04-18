@@ -306,7 +306,7 @@ class ComplexConv {
   final String input;
   final Precision;
   final isRadMode;
-  ComplexConv(this.input, this.Precision, this.isRadMode);
+  ComplexConv({this.input, this.Precision, this.isRadMode});
 
   String decode(){
     lp.LaTexParser Parser = lp.LaTexParser(input);

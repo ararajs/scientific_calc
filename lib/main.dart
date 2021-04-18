@@ -191,14 +191,14 @@ class _HomePageState extends State<HomePage> {
                                   if (mode.value == Mode.Matrix) {
                                     mode.value = Mode.Basic;
                                     mathBoxController.deleteAllExpression();
-                                    mathModel.setResult();
+                                    mathModel.setResult("");
                                   }
                                   else {
                                     mode.value = Mode.Matrix;
                                     mathBoxController.deleteAllExpression();
                                     mathBoxController.addExpression(
                                         '\\\\bmatrix');
-                                    mathModel.setResult();
+                                    mathModel.setResult("");
                                   }
                                   break;
                                 case "Settings" :
@@ -361,8 +361,8 @@ class _HomePageState extends State<HomePage> {
                               Button(symb:"+MAT", Input:"\\\\bmatrix",  Colorlist: MainColor, Size: displayWidth(context) * 0.055,),
                               Button(symb:"+Col", InputList:["Shift-Spacebar"],  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"+Row", InputList:["Shift-Enter"],  Colorlist: MainColor, Size: displayWidth(context) * 0.060,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              MatrixInv(symb:"MInv",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              MatrixTranspose(symb:"MTrans", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.045,),
 
 
                             ],
@@ -372,9 +372,9 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget> [
 
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
-                              Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              MatrixNorm(symb:"MDet", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              ComplexAbs(symb:"CAbs", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
+                              ComplexPolar(symb:"C-P", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
                               Button(symb:"", Input:"",  Colorlist: MainColor, Size: displayWidth(context) * 0.065,),
 
                             ],

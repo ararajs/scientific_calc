@@ -11,6 +11,7 @@ import "mathtest.dart" as lp;
 import "package:flutter_app/solver.dart";
 import "package:linalg/linalg.dart";
 import "package:flutter_app/mathtest.dart";
+import "package:extended_math/extended_math.dart" as ex;
 
 
 class Button extends StatelessWidget{
@@ -164,6 +165,8 @@ class MathModel with ChangeNotifier {
   AnimationController equalAnimation;
 
   String get result => _result;
+  int get precision=> _precision;
+  bool get radMode => _isRadMode;
   void updateExpression(String expression) {
     _expression = expression;
   }
@@ -182,8 +185,8 @@ class MathModel with ChangeNotifier {
     }
   }
 
-  void setResult(){
-    _result = "";
+  void setResult(String Input){
+    _result = Input;
     notifyListeners();
   }
 
@@ -244,16 +247,15 @@ class MathModel with ChangeNotifier {
         }
         else if (c_i > c_times + c_div + c_rb + c_asin + c_sin + c_pi){
           if (_expression.contains("Ans")){
-            if (NumSum.isEmpty){
+            if (ComplexSum.isEmpty){
               _expression = _expression.replaceAll("Ans", "");
             }
             else{
               _expression = _expression.replaceAll("Ans", ComplexSum.last);
             }
           }
-          ComplexSum.add(_expression);
-          print(ComplexSum);
-         ComplexConv solver = ComplexConv(_expression, _precision, _isRadMode);
+          ComplexSum.add(r"\left("+ _expression + r"\right)");
+         ComplexConv solver = ComplexConv(input:_expression, Precision:_precision, isRadMode:_isRadMode);
          _result = solver.decode();
 
         }
@@ -563,5 +565,301 @@ enum Mode {
   Complex,
 }
 
+class MatrixInv extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final Input;
+  final symb;
+  final List InputList;
+  final String FullInput;
+  final String PreviousAnswer;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  MatrixInv({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
 
 
+  Widget build(BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+
+    return SizedBox(
+      width: 65.0,
+      height: 35.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: (){
+                  matrixModel.invert();
+                  mathBoxController.deleteAllExpression();
+                  mathBoxController.addString(matrixModel.display());
+                },
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+
+
+}
+
+class MatrixTranspose extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final Input;
+  final symb;
+  final List InputList;
+  final String FullInput;
+  final String PreviousAnswer;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  MatrixTranspose({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
+
+
+  Widget build(BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+
+    return SizedBox(
+      width: 65.0,
+      height: 35.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: (){
+                  matrixModel.transpose();
+                  mathBoxController.deleteAllExpression();
+                  mathBoxController.addString(matrixModel.display());
+                },
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+
+
+}
+
+class MatrixNorm extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final Input;
+  final symb;
+  final List InputList;
+  final String FullInput;
+  final String PreviousAnswer;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  MatrixNorm({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
+
+
+  Widget build(BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+
+    return SizedBox(
+      width: 65.0,
+      height: 35.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: (){
+                  matrixModel.norm();
+                  mathBoxController.deleteAllExpression();
+                  mathBoxController.addString(matrixModel.display());
+                },
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+
+
+}
+
+class ComplexAbs extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final Input;
+  final symb;
+  final List InputList;
+  final String FullInput;
+  final String PreviousAnswer;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  ComplexAbs({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
+
+
+  Widget build(BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+    final mathModel = Provider.of<MathModel>(context, listen: false);
+
+    return SizedBox(
+      width: 65.0,
+      height: 35.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: (){
+                  var _result = mathModel.result;
+                  if (_result.contains("i")){
+                    ex.Complex term = convert(_result);
+                    String output = term.module.toStringAsFixed(mathModel.precision);
+                    mathModel.setResult(output);
+                  }
+                },
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+
+
+}
+
+class ComplexPolar extends StatelessWidget{
+  final List Colorlist;
+  final double Size;
+  final Input;
+  final symb;
+  final List InputList;
+  final String FullInput;
+  final String PreviousAnswer;
+  final ValueChanged<String> Set_Output;
+  final ValueChanged<String> Set_Input;
+  final ValueChanged<String> Update_Input;
+  ComplexPolar({this.Update_Input, this.Input, this.Set_Output, this.Set_Input, this.FullInput, this.Colorlist, this.Size, this.PreviousAnswer, this.symb, this.InputList});
+
+
+  Widget build(BuildContext context){
+    final mathBoxController = Provider.of<MathBoxController>(context, listen: false);
+    final matrixModel = Provider.of<MatrixModel>(context, listen: false);
+    final mathModel = Provider.of<MathModel>(context, listen: false);
+
+    return SizedBox(
+      width: 65.0,
+      height: 35.0,
+      child: Stack(children: <Widget>[
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              child: FlatButton(
+                color: Color.fromRGBO(Colorlist[0], Colorlist[1], Colorlist[2], Colorlist[3]),
+                onPressed: (){
+                  var _result = mathModel.result;
+                  if (_result.contains("i")){
+                    ex.Complex term = convert(_result);
+                    String mod = term.module.toStringAsFixed(mathModel.precision);
+                    double argu = term.argument.toDouble();
+                    if (mathModel._isRadMode){
+                      mathModel.setResult(mod + "∠" + argu.toStringAsFixed(mathModel.precision));
+                    }
+                    else{
+                      argu = argu*180/math.pi;
+                      mathModel.setResult(mod + "∠" + argu.toStringAsFixed(mathModel.precision));
+                    }
+                  }
+                },
+              ),
+            )
+
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Text(
+              this.symb.toString(),style: TextStyle(fontSize: this.Size, color: Colors.white,),),
+          ),
+        ),
+      ]),
+    );
+  }
+
+
+}
+
+ex.Complex convert (String string){
+  string = string.replaceAll(" ","");
+  RegExp opStr = RegExp(r"\+|-");
+  Iterable<RegExpMatch> op_matches = opStr.allMatches(string);
+  List op_match = op_matches.toList();
+  List op = [];
+  RegExp valStr = RegExp(r"[^+-]+");
+  Iterable<RegExpMatch> val_matches = valStr.allMatches(string);
+  List val_match = val_matches.toList();
+  List val = [];
+  for (int i = 0; i < val_matches.length; i++){
+    val.add(string.substring(val_match[i].start, val_match[i].end));
+  }
+  for (int i = 0; i < op_matches.length; i++){
+    op.add(string.substring(op_match[i].start, op_match[i].end));
+  }
+
+  if (op.length == 2){
+    double re = double.parse("-" + val[0]);
+    double im = double.parse(op[1] + val[1].replaceAll("i", ""));
+    return ex.Complex(re:re, im:im);
+  }
+  else{
+    double re = double.parse(val[0]);
+    double im = double.parse(op[0] + val[1].replaceAll("i", ""));
+    return ex.Complex(re:re, im:im);
+  }
+}
